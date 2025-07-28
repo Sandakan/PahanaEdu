@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
+              <option name="originalContent" value="&lt;!DOCTYPE web-app PUBLIC&#10; &quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;&#10; &quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot; &gt;&#10;&#10;&lt;web-app&gt;&#10;  &lt;display-name&gt;Archetype Created Web Application&lt;/display-name&gt;&#10;&#10;&lt;/web-app&gt;&#10;" />
+              <option name="updatedContent" value="&lt;!DOCTYPE web-app PUBLIC&#10; &quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;&#10; &quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot; &gt;&#10;&#10;&lt;web-app&gt;&#10;  &lt;display-name&gt;Archetype Created Web Application&lt;/display-name&gt;&#10;&#10;  &lt;servlet&gt;&#10;    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;&#10;    &lt;servlet-class&gt;com.pahanaedu.HelloServlet&lt;/servlet-class&gt;&#10;  &lt;/servlet&gt;&#10;&#10;  &lt;servlet-mapping&gt;&#10;    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;&#10;    &lt;url-pattern&gt;/hello&lt;/url-pattern&gt;&#10;  &lt;/servlet-mapping&gt;&#10;&#10;&lt;/web-app&gt;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
