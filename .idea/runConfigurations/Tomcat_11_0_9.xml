@@ -9,6 +9,11 @@
           <option name="CONTEXT_PATH" value="/PahanaEdu_war_exploded" />
         </settings>
       </artifact>
+      <artifact name="PahanaEdu:war">
+        <settings>
+          <option name="CONTEXT_PATH" value="/PahanaEdu_war" />
+        </settings>
+      </artifact>
     </deployment>
     <server-settings>
       <option name="BASE_DIRECTORY_NAME" value="1abf3ca6-b6e8-4456-b582-95bb790ce196" />
@@ -85,6 +90,7 @@
       <option name="Make" enabled="true" />
       <option name="BuildArtifacts" enabled="true">
         <artifact name="PahanaEdu:war exploded" />
+        <artifact name="PahanaEdu:war" />
       </option>
     </method>
   </configuration>
