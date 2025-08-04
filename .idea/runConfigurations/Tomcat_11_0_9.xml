@@ -4,14 +4,14 @@
     <option name="START_JAVASCRIPT_DEBUGGER" value="true" />
     <option name="UPDATING_POLICY" value="restart-server" />
     <deployment>
-      <artifact name="PahanaEdu:war exploded">
-        <settings>
-          <option name="CONTEXT_PATH" value="/PahanaEdu_war_exploded" />
-        </settings>
-      </artifact>
       <artifact name="PahanaEdu:war">
         <settings>
           <option name="CONTEXT_PATH" value="/PahanaEdu_war" />
+        </settings>
+      </artifact>
+      <artifact name="PahanaEdu:war exploded">
+        <settings>
+          <option name="CONTEXT_PATH" value="/PahanaEdu_war_exploded" />
         </settings>
       </artifact>
     </deployment>
@@ -90,7 +90,6 @@
       <option name="Make" enabled="true" />
       <option name="BuildArtifacts" enabled="true">
         <artifact name="PahanaEdu:war exploded" />
-        <artifact name="PahanaEdu:war" />
       </option>
     </method>
   </configuration>
