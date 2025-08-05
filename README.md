@@ -56,6 +56,19 @@ The deployment descriptor that maps the servlet to the `/hello` URL pattern.
    - Visit `http://localhost:8080/PahanaEdu_war_exploded/` for the JSP page.
    - Visit `http://localhost:8080/PahanaEdu_war_exploded/hello` to test the servlet.
 
+## Environment Variable Setup
+
+To enhance security and avoid hardcoding sensitive information like database credentials, the project requires an `.env`
+file at the root of the workspace. This file should contain the following variables:
+
+```
+DB_URL=jdbc:mysql://localhost:3306/pahana_edu
+DB_USER=your_username
+DB_PASSWORD=your_password
+```
+
+Ensure this file is not committed to version control by adding `.env` to your `.gitignore` file.
+
 ## Troubleshooting
 
 ### 404 Error on `/PahanaEdu`
