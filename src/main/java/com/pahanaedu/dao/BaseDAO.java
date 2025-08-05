@@ -18,4 +18,8 @@ public abstract class BaseDAO {
     protected Connection getConnection() throws SQLException {
         return databaseHelper.getConnection();
     }
+
+    protected void closeConnection(Connection connection) {
+        databaseHelper.closeConnection(connection);
+    }
 }
