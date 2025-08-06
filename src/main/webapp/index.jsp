@@ -4,7 +4,7 @@
     <title>Welcome to PahanaEdu</title>
 </head>
 <body>
-<h1>Hello from JSP!</h1>
+<h1>Hello World</h1>
 <p>This confirms your Tomcat setup is working correctly.</p>
 <p><a href="hello">Click here to test the servlet</a></p>
 </body>
