@@ -26,22 +26,9 @@ public class AuthService {
             return user;
         }
 
-        // if (user != null && PasswordUtil.verifyPassword(password,
-        // user.getPassword())) {
-        // userDAO.updateLastLogin(user.getUserId());
-        // return user;
-        // }
-
         return null;
     }
 
-    /**
-     * Check if user has required role
-     *
-     * @param user         the user object
-     * @param requiredRole the required role
-     * @return true if user has the required role, false otherwise
-     */
     public boolean hasRole(User user, String requiredRole) {
         return user != null && requiredRole.equals(user.getRole());
     }
