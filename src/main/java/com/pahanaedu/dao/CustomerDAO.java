@@ -13,8 +13,8 @@ public class CustomerDAO extends BaseDAO {
         String query = "SELECT * FROM customers WHERE deleted_at IS NULL ORDER BY created_at DESC";
 
         try (Connection connection = getConnection();
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query)) {
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
                 Customer customer = mapResultSetToCustomer(resultSet);
@@ -31,7 +31,7 @@ public class CustomerDAO extends BaseDAO {
         String query = "SELECT * FROM customers WHERE customer_id = ? AND deleted_at IS NULL";
 
         try (Connection connection = getConnection();
-                PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setInt(1, customerId);
             ResultSet resultSet = statement.executeQuery();
@@ -50,7 +50,7 @@ public class CustomerDAO extends BaseDAO {
         String query = "SELECT * FROM customers WHERE account_number = ? AND deleted_at IS NULL";
 
         try (Connection connection = getConnection();
-                PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setString(1, accountNumber);
             ResultSet resultSet = statement.executeQuery();
@@ -69,7 +69,7 @@ public class CustomerDAO extends BaseDAO {
         String query = "INSERT INTO customers (account_number, name, address, telephone, email) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection connection = getConnection();
-                PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
             statement.setString(1, customer.getAccountNumber());
             statement.setString(2, customer.getName());
@@ -97,7 +97,7 @@ public class CustomerDAO extends BaseDAO {
         String query = "UPDATE customers SET account_number = ?, name = ?, address = ?, telephone = ?, email = ? WHERE customer_id = ? AND deleted_at IS NULL";
 
         try (Connection connection = getConnection();
-                PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setString(1, customer.getAccountNumber());
             statement.setString(2, customer.getName());
@@ -119,7 +119,7 @@ public class CustomerDAO extends BaseDAO {
         String query = "UPDATE customers SET deleted_at = CURRENT_TIMESTAMP WHERE customer_id = ?";
 
         try (Connection connection = getConnection();
-                PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setInt(1, customerId);
             int rowsAffected = statement.executeUpdate();
@@ -135,7 +135,7 @@ public class CustomerDAO extends BaseDAO {
         String query = "SELECT COUNT(*) FROM customers WHERE account_number = ? AND deleted_at IS NULL";
 
         try (Connection connection = getConnection();
-                PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setString(1, accountNumber);
             ResultSet resultSet = statement.executeQuery();
@@ -154,7 +154,7 @@ public class CustomerDAO extends BaseDAO {
         String query = "SELECT COUNT(*) FROM customers WHERE account_number = ? AND customer_id != ? AND deleted_at IS NULL";
 
         try (Connection connection = getConnection();
-                PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setString(1, accountNumber);
             statement.setInt(2, customerId);
@@ -171,14 +171,17 @@ public class CustomerDAO extends BaseDAO {
     }
 
     public String generateAccountNumber() {
+        // Query to get the maximum account number from the customers table to extract the numeric part from the account number of format "ACC000001"
         String query = "SELECT MAX(CAST(SUBSTRING(account_number, 4) AS UNSIGNED)) as max_num FROM customers WHERE account_number LIKE 'ACC%'";
 
         try (Connection connection = getConnection();
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query)) {
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
 
             if (resultSet.next()) {
                 int maxNum = resultSet.getInt("max_num");
+
+                // formats the next account number with leading zeros
                 return String.format("ACC%06d", maxNum + 1);
             }
         } catch (SQLException e) {
@@ -209,4 +212,5 @@ public class CustomerDAO extends BaseDAO {
 
         return customer;
     }
+}
 }
