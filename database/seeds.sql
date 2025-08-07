@@ -12,15 +12,15 @@ VALUES ('Books', 'Educational and general books'),
        ('Accessories', 'Book accessories and supplies');
 
 -- Insert default admin user
--- Password: admin123 (should be properly hashed in production)
+-- Password: admin123 (plain text for debugging)
 INSERT INTO users (email, password, first_name, last_name, role)
-VALUES ('admin@pahanaedu.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'System',
+VALUES ('admin@pahanaedu.com', 'admin123', 'System',
         'Administrator', 'ADMIN');
 
 -- Insert sample cashier user
--- Password: cashier123 (should be properly hashed in production)
+-- Password: cashier123 (plain text for debugging)
 INSERT INTO users (email, password, first_name, last_name, role)
-VALUES ('cashier@pahanaedu.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'John', 'Doe',
+VALUES ('cashier@pahanaedu.com', 'cashier123', 'John', 'Doe',
         'CASHIER');
 
 -- Insert sample customers

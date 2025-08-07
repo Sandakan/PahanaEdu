@@ -1,0 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.pahanaedu.model.User" %>
+<%
+    // Check if user is logged in
+    User user = (User) session.getAttribute("user");
+    if (user == null) {
+        response.sendRedirect(request.getContextPath() + "/login");
+        return;
+    }
+%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Pahana Edu Billing System</title>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/common.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/dashboard.css">
+</head>
+<body>
+<div class="header">
+    <h1>Pahana Edu Billing System</h1>
+    <div class="user-info">
+        <span class="user-name">Welcome, <%= user.getFullName() %></span>
+        <span class="role-badge"><%= user.getRole() %></span>
+        <a href="<%= request.getContextPath() %>/logout" class="logout-btn">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="welcome-card">
+        <h2>Welcome to Pahana Edu Billing System</h2>
+        <p>You are logged in as <strong><%= user.getRole() %>
+        </strong>. Select an option below to get started.</p>
+    </div>
+</div>
+</body>
+</html>
