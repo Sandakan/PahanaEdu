@@ -26,7 +26,7 @@
     <% } %>
 
     <!-- Display logout success message -->
-    <% if (request.getParameter("logout").equals("logout")) { %>
+    <% if ("logout".equals(request.getParameter("message"))) { %>
     <div class="success-message">
         You have been successfully logged out.
     </div>

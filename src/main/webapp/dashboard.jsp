@@ -35,6 +35,15 @@
         <p>You are logged in as <strong><%= user.getRole() %>
         </strong>. Select an option below to get started.</p>
     </div>
+
+    <div class="menu-grid">
+        <div class="menu-card">
+            <h3>Customer Management</h3>
+            <p>Manage customer accounts, add new customers, and edit customer information.</p>
+            <a href="<%= ctx %>/customers" class="menu-btn">Manage Customers</a>
+        </div>
+    </div>
 </div>
+
 </body>
 </html>
