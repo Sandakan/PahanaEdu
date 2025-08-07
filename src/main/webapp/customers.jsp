@@ -43,7 +43,7 @@
 
     <div class="content-header">
         <h2>Customer Management</h2>
-        <a href="<%= ctx %>/customers?action=new" class="btn">Add New Customer</a>
+        <a href="<%= ctx %>/customers?action=new" class="btn btn-primary">Add New Customer</a>
     </div>
 
     <% if (successMessage != null) { %>
