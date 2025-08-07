@@ -25,7 +25,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= pageTitle %> - Pahana Edu Billing System</title>
     <link rel="stylesheet" href="<%= ctx %>/css/common.css">
-    <link rel="stylesheet" href="<%= ctx %>/css/login.css">
     <link rel="stylesheet" href="<%= ctx %>/css/customer-form.css">
 </head>
 <body>
@@ -122,34 +121,7 @@
     </div>
 </div>
 
-<script>
-    // Auto-format telephone number
-    document.getElementById('telephone').addEventListener('input', function(e) {
-        let value = e.target.value.replace(/\D/g, '');
-        if (value.length > 10) {
-            value = value.substring(0, 10);
-        }
-        e.target.value = value;
-    });
-    
-    // Form validation
-    document.querySelector('form').addEventListener('submit', function(e) {
-        const name = document.getElementById('name').value.trim();
-        const address = document.getElementById('address').value.trim();
-        const telephone = document.getElementById('telephone').value.trim();
-        
-        if (!name || !address || !telephone) {
-            e.preventDefault();
-            alert('Please fill in all required fields (Name, Address, and Telephone).');
-            return false;
-        }
-        
-        if (telephone.length < 9) {
-            e.preventDefault();
-            alert('Please enter a valid telephone number (at least 9 digits).');
-            return false;
-        }
-    });
-</script>
+<script src="<%= ctx %>/js/common.js"></script>
+<script src="<%= ctx %>/js/customer-form.js"></script>
 </body>
 </html>

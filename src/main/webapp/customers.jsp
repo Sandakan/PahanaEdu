@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.pahanaedu.model.User" %>
 <%@ page import="com.pahanaedu.model.Customer" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%
     // Check if user is logged in
     User user = (User) session.getAttribute("user");
@@ -35,11 +36,11 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container-full">
     <div class="breadcrumb">
         <a href="<%= ctx %>/dashboard">Dashboard</a> > Customer Management
     </div>
-    
+
     <div class="content-header">
         <h2>Customer Management</h2>
         <a href="<%= ctx %>/customers?action=new" class="btn">Add New Customer</a>
@@ -78,14 +79,13 @@
                         <td><%= customer.getAddress() %></td>
                         <td><%= customer.getTelephone() %></td>
                         <td><%= customer.getEmail() != null ? customer.getEmail() : "-" %></td>
-                        <td><%= customer.getCreatedAt() != null ? customer.getCreatedAt().toString().substring(0, 16) : "-" %></td>
+                        <td><%= customer.getCreatedAt() != null ? customer.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm a")) : "-" %></td>
                         <td>
                             <div class="actions">
-                                <a href="<%= ctx %>/customers?action=edit&id=<%= customer.getCustomerId() %>" 
+                                <a href="<%= ctx %>/customers?action=edit&id=<%= customer.getCustomerId() %>"
                                    class="btn btn-warning">Edit</a>
-                                <a href="<%= ctx %>/customers?action=delete&id=<%= customer.getCustomerId() %>" 
-                                   class="btn btn-danger"
-                                   onclick="return confirm('Are you sure you want to delete this customer?')">Delete</a>
+                                <a href="<%= ctx %>/customers?action=delete&id=<%= customer.getCustomerId() %>"
+                                   class="btn btn-danger">Delete</a>
                             </div>
                         </td>
                     </tr>
@@ -103,5 +103,8 @@
         <a href="<%= ctx %>/dashboard" class="btn btn-secondary">Back to Dashboard</a>
     </div>
 </div>
+
+<script src="<%= ctx %>/js/common.js"></script>
+<script src="<%= ctx %>/js/customers.js"></script>
 </body>
 </html>

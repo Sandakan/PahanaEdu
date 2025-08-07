@@ -365,7 +365,7 @@ body {
 }
 
 .container {
-	max-width: 1200px;
+    max-width: 1200px;
 	margin: 0 auto;
 	padding: 2rem;
 }
@@ -374,4 +374,10 @@ body {
 	max-width: 800px;
 	margin: 0 auto;
 	padding: 2rem;
+}
+
+.container-full {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
 }

@@ -56,31 +56,7 @@
     </div>
 </div>
 
-<script>
-    // Client-side validation
-    document.getElementById('loginForm').addEventListener('submit', function (e) {
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
-
-        if (!email || !password) {
-            e.preventDefault();
-            alert('Please fill in all fields.');
-            return false;
-        }
-
-        // Basic email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            e.preventDefault();
-            alert('Please enter a valid email address.');
-            return false;
-        }
-    });
-
-    // Focus on email field when page loads
-    window.onload = function () {
-        document.getElementById('email').focus();
-    };
-</script>
+<script src="<%= request.getContextPath() %>/js/common.js"></script>
+<script src="<%= request.getContextPath() %>/js/login.js"></script>
 </body>
 </html>
