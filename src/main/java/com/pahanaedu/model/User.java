@@ -111,8 +111,4 @@ public class User {
     public boolean isStaff() {
         return this.role.equals("staff");
     }
-
-    public boolean isCustomer() {
-        return this.role.equals("customer");
-    }
 }
