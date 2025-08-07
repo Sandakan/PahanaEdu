@@ -7,6 +7,8 @@
         response.sendRedirect(request.getContextPath() + "/login");
         return;
     }
+
+    String ctx = request.getContextPath();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,8 +16,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Pahana Edu Billing System</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/common.css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/dashboard.css">
+    <link rel="stylesheet" href="<%= ctx %>/css/common.css">
+    <link rel="stylesheet" href="<%= ctx %>/css/dashboard.css">
 </head>
 <body>
 <div class="header">
