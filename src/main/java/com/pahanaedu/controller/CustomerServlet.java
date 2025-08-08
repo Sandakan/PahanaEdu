@@ -16,7 +16,7 @@ public class CustomerServlet extends HttpServlet {
     private CustomerDAO customerDAO;
 
     @Override
-    public void init() throws ServletException {
+    public void init()  {
         customerDAO = new CustomerDAO();
     }
 

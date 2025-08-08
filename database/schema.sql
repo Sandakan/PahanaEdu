@@ -43,7 +43,7 @@ CREATE TABLE items
     item_id     INT PRIMARY KEY AUTO_INCREMENT,
     name        VARCHAR(100)   NOT NULL,
     description TEXT,
-    category_id INT,
+    category_id INT            NOT NULL,
     unit_price  DECIMAL(10, 2) NOT NULL,
     created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
