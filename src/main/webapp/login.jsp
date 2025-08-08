@@ -46,7 +46,7 @@
                    placeholder="Enter your password">
         </div>
 
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" class="btn btn-primary btn-full">Login</button>
     </form>
 
     <div class="forgot-password">
