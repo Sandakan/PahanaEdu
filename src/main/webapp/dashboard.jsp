@@ -42,6 +42,12 @@
             <p>Manage customer accounts, add new customers, and edit customer information.</p>
             <a href="<%= ctx %>/customers" class="menu-btn">Manage Customers</a>
         </div>
+        
+        <div class="menu-card">
+            <h3>Category Management</h3>
+            <p>Manage categories, add new categories, and edit category information.</p>
+            <a href="<%= ctx %>/categories" class="menu-btn">Manage Categories</a>
+        </div>
     </div>
 </div>
 
