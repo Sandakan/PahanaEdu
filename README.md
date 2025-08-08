@@ -1,9 +1,11 @@
 
 # Pahana Edu Billing System
 
+> This project is part of the assignment for the Advanced Programming module in the BSc (Hons) Software Engineering program.
+
 ## Overview
 
-Pahana Edu Billing System is a Java-based web application for educational billing management. It uses Jakarta EE Servlets (6.0), JSP, and MySQL for data persistence, and is deployed on Apache Tomcat 11.0.9. The project demonstrates a real-world, session-based authentication and billing workflow.
+Pahana Edu Billing System is a Java-based web application for billing management. It uses Jakarta EE Servlets (6.0), JSP, and MySQL for data persistence, and is deployed on Apache Tomcat 11.0.9. The project demonstrates a real-world, session-based authentication and billing workflow.
 
 ## Project Structure
 

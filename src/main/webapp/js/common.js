@@ -3,8 +3,7 @@ const app = {
 		return confirm(message || 'Are you sure you want to proceed?');
 	},
 
-	showAlert: function (message, type) {
-		const alertType = type || 'info';
+	showAlert: function (message) {
 		alert(message);
 	},
 
