@@ -175,7 +175,6 @@ public class ItemServlet extends HttpServlet {
             String categoryIdStr = request.getParameter("categoryId");
             String unitPriceStr = request.getParameter("unitPrice");
 
-            // Validation
             if (isNullOrEmpty(name) || isNullOrEmpty(unitPriceStr) || isNullOrEmpty(categoryIdStr)) {
                 request.setAttribute("error", "Name, category, and unit price are required fields");
                 Item item = new Item(itemId, name, description, 0, null);
@@ -208,10 +207,7 @@ public class ItemServlet extends HttpServlet {
                 return;
             }
 
-            int categoryId = 0;
-            if (!isNullOrEmpty(categoryIdStr)) {
-                categoryId = Integer.parseInt(categoryIdStr);
-            }
+            int categoryId = Integer.parseInt(categoryIdStr);
 
             Item item = new Item(itemId, name, description, categoryId, unitPrice);
 
