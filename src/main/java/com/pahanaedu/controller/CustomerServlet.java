@@ -16,7 +16,7 @@ public class CustomerServlet extends HttpServlet {
     private CustomerDAO customerDAO;
 
     @Override
-    public void init()  {
+    public void init() {
         customerDAO = new CustomerDAO();
     }
 
@@ -39,6 +39,9 @@ public class CustomerServlet extends HttpServlet {
                 break;
             case "edit":
                 showEditCustomerForm(request, response);
+                break;
+            case "view":
+                viewCustomerDetails(request, response);
                 break;
             case "delete":
                 deleteCustomer(request, response);
@@ -90,6 +93,26 @@ public class CustomerServlet extends HttpServlet {
             if (customer != null) {
                 request.setAttribute("customer", customer);
                 request.getRequestDispatcher("/customer-form.jsp").forward(request, response);
+            } else {
+                request.setAttribute("error", "Customer not found");
+                listCustomers(request, response);
+            }
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "Invalid customer ID");
+            listCustomers(request, response);
+        }
+    }
+
+    private void viewCustomerDetails(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        try {
+            int customerId = Integer.parseInt(request.getParameter("id"));
+            Customer customer = customerDAO.getCustomerById(customerId);
+
+            if (customer != null) {
+                request.setAttribute("customer", customer);
+                request.getRequestDispatcher("/account-details.jsp").forward(request, response);
             } else {
                 request.setAttribute("error", "Customer not found");
                 listCustomers(request, response);
