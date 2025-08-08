@@ -125,7 +125,7 @@
     </div>
     <% } %>
 
-    <div style="margin-top: 30px;">
+    <div class="navigation-actions">
         <a href="<%= ctx %>/customers" class="btn btn-secondary">Back to Customer List</a>
         <a href="<%= ctx %>/dashboard" class="btn btn-secondary">Back to Dashboard</a>
     </div>

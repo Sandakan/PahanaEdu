@@ -30,9 +30,6 @@ public class CategoryServlet extends HttpServlet {
         }
 
         switch (action) {
-            case "list":
-                listCategories(request, response);
-                break;
             case "new":
                 showNewCategoryForm(request, response);
                 break;
@@ -111,8 +108,7 @@ public class CategoryServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         if (action == null) {
-            listCategories(request, response);
-            return;
+            action = "list";
         }
 
         switch (action) {

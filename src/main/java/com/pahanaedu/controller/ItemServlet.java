@@ -36,9 +36,6 @@ public class ItemServlet extends HttpServlet {
         }
 
         switch (action) {
-            case "list":
-                listItems(request, response);
-                break;
             case "new":
                 showNewItemForm(request, response);
                 break;
@@ -60,12 +57,20 @@ public class ItemServlet extends HttpServlet {
 
         String action = request.getParameter("action");
 
-        if ("create".equals(action)) {
-            createItem(request, response);
-        } else if ("update".equals(action)) {
-            updateItem(request, response);
-        } else {
-            listItems(request, response);
+        if (action == null) {
+            action = "list";
+        }
+
+        switch (action) {
+            case "create":
+                createItem(request, response);
+                break;
+            case "update":
+                updateItem(request, response);
+                break;
+            default:
+                listItems(request, response);
+                break;
         }
     }
 

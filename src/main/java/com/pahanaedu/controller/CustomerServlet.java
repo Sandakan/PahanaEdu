@@ -31,9 +31,6 @@ public class CustomerServlet extends HttpServlet {
         }
 
         switch (action) {
-            case "list":
-                listCustomers(request, response);
-                break;
             case "new":
                 showNewCustomerForm(request, response);
                 break;
@@ -58,12 +55,20 @@ public class CustomerServlet extends HttpServlet {
 
         String action = request.getParameter("action");
 
-        if ("create".equals(action)) {
-            createCustomer(request, response);
-        } else if ("update".equals(action)) {
-            updateCustomer(request, response);
-        } else {
-            listCustomers(request, response);
+        if (action == null) {
+            action = "list";
+        }
+
+        switch (action) {
+            case "create":
+                createCustomer(request, response);
+                break;
+            case "update":
+                updateCustomer(request, response);
+                break;
+            default:
+                listCustomers(request, response);
+                break;
         }
     }
 
