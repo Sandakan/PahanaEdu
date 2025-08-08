@@ -7,8 +7,7 @@ public class Item {
     private int itemId;
     private String name;
     private String description;
-    private int categoryId;
-    private String categoryName;
+    private Category category;
     private BigDecimal unitPrice;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -17,21 +16,40 @@ public class Item {
     public Item() {
     }
 
-    public Item(String name, String description, int categoryId, BigDecimal unitPrice) {
+    public Item(String name, String description, Category category, BigDecimal unitPrice) {
         this.name = name;
         this.description = description;
-        this.categoryId = categoryId;
+        this.category = category;
         this.unitPrice = unitPrice;
     }
 
+    public Item(int itemId, String name, String description, Category category, BigDecimal unitPrice) {
+        this.itemId = itemId;
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.unitPrice = unitPrice;
+    }
+
+    public Item(String name, String description, int categoryId, BigDecimal unitPrice) {
+        this.name = name;
+        this.description = description;
+        this.unitPrice = unitPrice;
+
+        this.category = new Category();
+        this.category.setCategoryId(categoryId);
+    }
+ 
     public Item(int itemId, String name, String description, int categoryId, BigDecimal unitPrice) {
         this.itemId = itemId;
         this.name = name;
         this.description = description;
-        this.categoryId = categoryId;
         this.unitPrice = unitPrice;
+        
+        this.category = new Category();
+        this.category.setCategoryId(categoryId);
     }
-
+ 
     public int getItemId() {
         return itemId;
     }
@@ -56,20 +74,31 @@ public class Item {
         this.description = description;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public Integer getCategoryId() {
+        return category != null ? category.getCategoryId() : null;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryId(Integer categoryId) {
+        if (categoryId != null) {
+            if (this.category == null) {
+                this.category = new Category();
+            }
+            this.category.setCategoryId(categoryId);
+        } else {
+            this.category = null;
+        }
     }
 
     public String getCategoryName() {
-        return categoryName;
+        return category != null ? category.getName() : null;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public BigDecimal getUnitPrice() {

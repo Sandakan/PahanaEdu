@@ -22,11 +22,14 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
-	// Form validation
 	const itemForm = document.querySelector('form');
 	if (itemForm) {
 		itemForm.addEventListener('submit', function (e) {
-			const requiredFields = [document.getElementById('name'), document.getElementById('unitPrice')];
+			const requiredFields = [
+				document.getElementById('name'),
+				document.getElementById('categoryId'),
+				document.getElementById('unitPrice'),
+			];
 
 			if (requiredFields.some((field) => !field)) {
 				console.error('Required form elements not found');
@@ -35,15 +38,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			if (!app.validateRequiredFields(requiredFields)) {
 				e.preventDefault();
-				app.showAlert('Please fill in all required fields (Name and Unit Price).');
+				app.showAlert('Please fill in all required fields (Name, Category, and Unit Price).');
 				return false;
 			}
 
-			const unitPriceValue = parseFloat(requiredFields[1].value);
+			const unitPriceValue = parseFloat(requiredFields[2].value);
 			if (isNaN(unitPriceValue) || unitPriceValue <= 0) {
 				e.preventDefault();
 				app.showAlert('Please enter a valid unit price (greater than 0).');
-				requiredFields[1].focus();
+				requiredFields[2].focus();
 				return false;
 			}
 

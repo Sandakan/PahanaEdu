@@ -1,6 +1,7 @@
 package com.pahanaedu.dao;
 
 import com.pahanaedu.model.Item;
+import com.pahanaedu.model.Category;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -81,11 +82,7 @@ public class ItemDAO extends BaseDAO {
 
             statement.setString(1, item.getName());
             statement.setString(2, item.getDescription());
-            if (item.getCategoryId() > 0) {
-                statement.setInt(3, item.getCategoryId());
-            } else {
-                statement.setNull(3, Types.INTEGER);
-            }
+            statement.setInt(3, item.getCategoryId());
             statement.setBigDecimal(4, item.getUnitPrice());
 
             int rowsAffected = statement.executeUpdate();
@@ -113,11 +110,7 @@ public class ItemDAO extends BaseDAO {
 
             statement.setString(1, item.getName());
             statement.setString(2, item.getDescription());
-            if (item.getCategoryId() > 0) {
-                statement.setInt(3, item.getCategoryId());
-            } else {
-                statement.setNull(3, Types.INTEGER);
-            }
+            statement.setInt(3, item.getCategoryId());
             statement.setBigDecimal(4, item.getUnitPrice());
             statement.setInt(5, item.getItemId());
 
@@ -208,8 +201,14 @@ public class ItemDAO extends BaseDAO {
         item.setItemId(resultSet.getInt("item_id"));
         item.setName(resultSet.getString("name"));
         item.setDescription(resultSet.getString("description"));
-        item.setCategoryId(resultSet.getInt("category_id"));
-        item.setCategoryName(resultSet.getString("category_name"));
+
+        int categoryId = resultSet.getInt("category_id");
+        String categoryName = resultSet.getString("category_name");
+        Category category = new Category();
+        category.setCategoryId(categoryId);
+        category.setName(categoryName);
+        item.setCategory(category);
+
         item.setUnitPrice(resultSet.getBigDecimal("unit_price"));
 
         if (resultSet.getTimestamp("created_at") != null) {

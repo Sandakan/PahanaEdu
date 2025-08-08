@@ -116,8 +116,8 @@ public class ItemServlet extends HttpServlet {
         String unitPriceStr = request.getParameter("unitPrice");
 
         // Validation
-        if (isNullOrEmpty(name) || isNullOrEmpty(unitPriceStr)) {
-            request.setAttribute("error", "Name and unit price are required fields");
+        if (isNullOrEmpty(name) || isNullOrEmpty(unitPriceStr) || isNullOrEmpty(categoryIdStr)) {
+            request.setAttribute("error", "Name, category, and unit price are required fields");
             List<Category> categories = categoryDAO.getAllCategories();
             request.setAttribute("categories", categories);
             request.getRequestDispatcher("/item-form.jsp").forward(request, response);
@@ -176,8 +176,8 @@ public class ItemServlet extends HttpServlet {
             String unitPriceStr = request.getParameter("unitPrice");
 
             // Validation
-            if (isNullOrEmpty(name) || isNullOrEmpty(unitPriceStr)) {
-                request.setAttribute("error", "Name and unit price are required fields");
+            if (isNullOrEmpty(name) || isNullOrEmpty(unitPriceStr) || isNullOrEmpty(categoryIdStr)) {
+                request.setAttribute("error", "Name, category, and unit price are required fields");
                 Item item = new Item(itemId, name, description, 0, null);
                 request.setAttribute("item", item);
                 List<Category> categories = categoryDAO.getAllCategories();

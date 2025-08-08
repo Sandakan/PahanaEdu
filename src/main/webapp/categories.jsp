@@ -4,6 +4,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     User user = (User) session.getAttribute("user");
+    if (user == null) {
+        response.sendRedirect(request.getContextPath() + "/login");
+        return;
+    }
+    
     List<Category> categories = (List<Category>) request.getAttribute("categories");
     String ctx = request.getContextPath();
     String successMessage = (String) request.getAttribute("success");

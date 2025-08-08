@@ -81,8 +81,8 @@
 
             <div class="form-group">
                 <label for="categoryId">Category</label>
-                <select id="categoryId" name="categoryId">
-                    <option value="">-- Select Category (Optional) --</option>
+                <select id="categoryId" name="categoryId" required>
+                    <option value="">-- Select Category --</option>
                     <% if (categories != null) {
                         for (Category category : categories) {
                             boolean selected = isEdit && item.getCategoryId() == category.getCategoryId();
