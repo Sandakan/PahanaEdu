@@ -1,0 +1,28 @@
+.status-badge {
+	padding: 0.3rem 0.8rem;
+	border-radius: 15px;
+	font-size: 0.8rem;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.status-pending {
+	background: #ffc107;
+	color: #212529;
+}
+
+.status-paid {
+	background: #28a745;
+	color: white;
+}
+
+.status-cancelled {
+	background: #dc3545;
+	color: white;
+}
+
+.table td.amount {
+	font-weight: bold;
+	color: #28a745;
+}
