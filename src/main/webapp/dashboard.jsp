@@ -44,8 +44,14 @@
         </div>
         
         <div class="menu-card">
+            <h3>Item Management</h3>
+            <p>Manage inventory items, add new products, and update pricing information.</p>
+            <a href="<%= ctx %>/items" class="menu-btn">Manage Items</a>
+        </div>
+        
+        <div class="menu-card">
             <h3>Category Management</h3>
-            <p>Manage categories, add new categories, and edit category information.</p>
+            <p>Manage item categories, organize products, and maintain category structure.</p>
             <a href="<%= ctx %>/categories" class="menu-btn">Manage Categories</a>
         </div>
     </div>

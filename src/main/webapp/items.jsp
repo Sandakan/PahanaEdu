@@ -1,10 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.pahanaedu.model.User" %>
-<%@ page import="com.pahanaedu.model.Customer" %>
+<%@ page import="com.pahanaedu.model.Item" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
 <%
-    // Check if user is logged in
     User user = (User) session.getAttribute("user");
     if (user == null) {
         response.sendRedirect(request.getContextPath() + "/login");
@@ -12,7 +10,7 @@
     }
 
     String ctx = request.getContextPath();
-    List<Customer> customers = (List<Customer>) request.getAttribute("customers");
+    List<Item> items = (List<Item>) request.getAttribute("items");
     String successMessage = (String) request.getAttribute("success");
     String errorMessage = (String) request.getAttribute("error");
 %>
@@ -21,10 +19,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Management - Pahana Edu Billing System</title>
+    <title>Item Management - Pahana Edu Billing System</title>
     <link rel="stylesheet" href="<%= ctx %>/css/common.css">
     <link rel="stylesheet" href="<%= ctx %>/css/dashboard.css">
-    <link rel="stylesheet" href="<%= ctx %>/css/customers.css">
+    <link rel="stylesheet" href="<%= ctx %>/css/items.css">
 </head>
 <body>
 <div class="header">
@@ -38,12 +36,12 @@
 
 <div class="container-full">
     <div class="breadcrumb">
-        <a href="<%= ctx %>/dashboard">Dashboard</a> &gt; Customer Management
+        <a href="<%= ctx %>/dashboard">Dashboard</a> &gt; Item Management
     </div>
 
     <div class="content-header">
-        <h2>Customer Management</h2>
-        <a href="<%= ctx %>/customers?action=new" class="btn btn-primary">Add New Customer</a>
+        <h2>Item Management</h2>
+        <a href="<%= ctx %>/items?action=new" class="btn btn-primary">Add New Item</a>
     </div>
 
     <% if (successMessage != null) { %>
@@ -58,39 +56,39 @@
     </div>
     <% } %>
 
-    <% if (customers != null && !customers.isEmpty()) { %>
+    <% if (items != null && !items.isEmpty()) { %>
     <table class="table">
         <thead>
         <tr>
-            <th>Account Number</th>
+            <th>ID</th>
             <th>Name</th>
-            <th>Address</th>
-            <th>Telephone</th>
-            <th>Email</th>
-            <th>Created At</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Unit Price</th>
+            <th>Created Date</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <% for (Customer customer : customers) { %>
+        <% for (Item item : items) { %>
         <tr>
-            <td><%= customer.getAccountNumber() %>
+            <td><%= item.getItemId() %>
             </td>
-            <td><%= customer.getName() %>
+            <td><%= item.getName() %>
             </td>
-            <td><%= customer.getAddress() %>
+            <td><%= item.getDescription() != null ? item.getDescription() : "-" %>
             </td>
-            <td><%= customer.getTelephone() %>
+            <td><%= item.getCategoryName() != null ? item.getCategoryName() : "N/A" %>
             </td>
-            <td><%= customer.getEmail() != null ? customer.getEmail() : "-" %>
+            <td><%= "LKR " + item.getUnitPrice().toString() %>
             </td>
-            <td><%= customer.getCreatedAt() != null ? customer.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm a")) : "-" %>
+            <td><%= item.getCreatedAt() != null ? item.getCreatedAt().toLocalDate() : "-" %>
             </td>
             <td>
                 <div class="actions">
-                    <a href="<%= ctx %>/customers?action=edit&id=<%= customer.getCustomerId() %>"
+                    <a href="<%= ctx %>/items?action=edit&id=<%= item.getItemId() %>"
                        class="btn btn-warning">Edit</a>
-                    <a href="<%= ctx %>/customers?action=delete&id=<%= customer.getCustomerId() %>"
+                    <a href="<%= ctx %>/items?action=delete&id=<%= item.getItemId() %>"
                        class="btn btn-danger">Delete</a>
                 </div>
             </td>
@@ -100,8 +98,8 @@
     </table>
     <% } else { %>
     <div class="empty-state">
-        <h3>No Customers Found</h3>
-        <p>No customers have been added yet. Click "Add New Customer" to get started.</p>
+        <h3>No Items Found</h3>
+        <p>No items have been added yet. Click "Add New Item" to get started.</p>
     </div>
     <% } %>
 
@@ -111,6 +109,6 @@
 </div>
 
 <script src="<%= ctx %>/js/common.js"></script>
-<script src="<%= ctx %>/js/customers.js"></script>
+<script src="<%= ctx %>/js/items.js"></script>
 </body>
 </html>

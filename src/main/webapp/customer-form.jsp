@@ -39,8 +39,8 @@
 
 <div class="container">
     <div class="breadcrumb">
-        <a href="<%= ctx %>/dashboard">Dashboard</a> > 
-        <a href="<%= ctx %>/customers">Customer Management</a> > 
+        <a href="<%= ctx %>/dashboard">Dashboard</a> &gt;
+        <a href="<%= ctx %>/customers">Customer Management</a> &gt;
         <%= pageTitle %>
     </div>
     
@@ -112,7 +112,7 @@
             </div>
             
             <div class="form-actions">
-                <button type="submit" class="btn">
+                <button type="submit" class="btn btn-success">
                     <%= isEditMode ? "Update Customer" : "Create Customer" %>
                 </button>
                 <a href="<%= ctx %>/customers" class="btn btn-secondary">Cancel</a>
