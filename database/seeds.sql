@@ -25,10 +25,10 @@ VALUES ('cashier@pahanaedu.com', 'cashier123', 'John', 'Doe',
 
 -- Insert sample customers
 INSERT INTO customers (account_number, name, address, telephone, email)
-VALUES ('ACC000001', 'Colombo International School', '123 Galle Road, Colombo 03', '+94-11-2345678', 'admin@cis.lk'),
-       ('ACC000002', 'Royal College Colombo', '456 Reid Avenue, Colombo 07', '+94-11-3456789', 'office@royal.edu.lk'),
-       ('ACC000003', 'St. Thomas College', '789 Mount Lavinia, Colombo 06', '+94-11-4567890', 'admin@stc.edu.lk'),
-       ('ACC000004', 'Vishaka Vidyalaya', '321 Bambalapitiya, Colombo 04', '+94-11-5678901', 'office@vishaka.edu.lk');
+VALUES (1, 'Colombo International School', '123 Galle Road, Colombo 03', '+94-11-2345678', 'admin@cis.lk'),
+       (2, 'Royal College Colombo', '456 Reid Avenue, Colombo 07', '+94-11-3456789', 'office@royal.edu.lk'),
+       (3, 'St. Thomas College', '789 Mount Lavinia, Colombo 06', '+94-11-4567890', 'admin@stc.edu.lk'),
+       (4, 'Vishaka Vidyalaya', '321 Bambalapitiya, Colombo 04', '+94-11-5678901', 'office@vishaka.edu.lk');
 
 -- Insert sample items
 INSERT INTO items (name, description, category_id, unit_price)

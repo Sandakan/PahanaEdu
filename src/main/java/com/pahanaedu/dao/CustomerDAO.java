@@ -52,13 +52,13 @@ public class CustomerDAO extends BaseDAO {
         try (Connection connection = getConnection();
                 PreparedStatement statement = connection.prepareStatement(query)) {
 
-            statement.setString(1, accountNumber);
+            statement.setInt(1, Integer.parseInt(accountNumber));
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
                 return mapResultSetToCustomer(resultSet);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -71,7 +71,7 @@ public class CustomerDAO extends BaseDAO {
         try (Connection connection = getConnection();
                 PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
-            statement.setString(1, customer.getAccountNumber());
+            statement.setInt(1, Integer.parseInt(customer.getAccountNumber()));
             statement.setString(2, customer.getName());
             statement.setString(3, customer.getAddress());
             statement.setString(4, customer.getTelephone());
@@ -86,7 +86,7 @@ public class CustomerDAO extends BaseDAO {
                 }
                 return true;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -99,7 +99,7 @@ public class CustomerDAO extends BaseDAO {
         try (Connection connection = getConnection();
                 PreparedStatement statement = connection.prepareStatement(query)) {
 
-            statement.setString(1, customer.getAccountNumber());
+            statement.setInt(1, Integer.parseInt(customer.getAccountNumber()));
             statement.setString(2, customer.getName());
             statement.setString(3, customer.getAddress());
             statement.setString(4, customer.getTelephone());
@@ -108,7 +108,7 @@ public class CustomerDAO extends BaseDAO {
 
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -137,13 +137,13 @@ public class CustomerDAO extends BaseDAO {
         try (Connection connection = getConnection();
                 PreparedStatement statement = connection.prepareStatement(query)) {
 
-            statement.setString(1, accountNumber);
+            statement.setInt(1, Integer.parseInt(accountNumber));
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
                 return resultSet.getInt(1) > 0;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -156,14 +156,14 @@ public class CustomerDAO extends BaseDAO {
         try (Connection connection = getConnection();
                 PreparedStatement statement = connection.prepareStatement(query)) {
 
-            statement.setString(1, accountNumber);
+            statement.setInt(1, Integer.parseInt(accountNumber));
             statement.setInt(2, customerId);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
                 return resultSet.getInt(1) > 0;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -171,9 +171,8 @@ public class CustomerDAO extends BaseDAO {
     }
 
     public String generateAccountNumber() {
-        // Query to get the maximum account number from the customers table to extract
-        // the numeric part from the account number of format "ACC000001"
-        String query = "SELECT MAX(CAST(SUBSTRING(account_number, 4) AS UNSIGNED)) as max_num FROM customers WHERE account_number LIKE 'ACC%'";
+        // Query to get the maximum account number from the customers table
+        String query = "SELECT MAX(account_number) as max_num FROM customers";
 
         try (Connection connection = getConnection();
                 Statement statement = connection.createStatement();
@@ -182,14 +181,13 @@ public class CustomerDAO extends BaseDAO {
             if (resultSet.next()) {
                 int maxNum = resultSet.getInt("max_num");
 
-                // formats the next account number with leading zeros
-                return String.format("ACC%06d", maxNum + 1);
+                return String.valueOf(maxNum + 1);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return "ACC000001"; // Default starting account number
+        return "1";
     }
 
     private Customer mapResultSetToCustomer(ResultSet resultSet) throws SQLException {

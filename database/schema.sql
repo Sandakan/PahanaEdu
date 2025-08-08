@@ -18,14 +18,14 @@ CREATE TABLE users
 CREATE TABLE customers
 (
     customer_id    INT PRIMARY KEY AUTO_INCREMENT,
-    account_number VARCHAR(20) UNIQUE  NOT NULL,
-    name           VARCHAR(100)        NOT NULL,
-    address        TEXT                NOT NULL,
-    telephone      VARCHAR(15)         NOT NULL,
-    email          VARCHAR(100) UNIQUE NULL,
+    account_number INT(6) ZEROFILL UNIQUE  NOT NULL,
+    name           VARCHAR(100)             NOT NULL,
+    address        TEXT                     NOT NULL,
+    telephone      VARCHAR(15)              NOT NULL,
+    email          VARCHAR(100) UNIQUE      NULL,
     created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    deleted_at     TIMESTAMP           NULL
+    deleted_at     TIMESTAMP                NULL
 );
 
 CREATE TABLE categories

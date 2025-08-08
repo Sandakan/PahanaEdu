@@ -80,7 +80,7 @@
             </div>
 
             <div class="form-group">
-                <label for="categoryId">Category</label>
+                <label for="categoryId">Category <span class="required">*</span></label>
                 <select id="categoryId" name="categoryId" required>
                     <option value="">-- Select Category --</option>
                     <% if (categories != null) {
@@ -93,7 +93,6 @@
                     <% }
                     } %>
                 </select>
-                <small style="color: #6c757d;">Optional field</small>
             </div>
 
             <div class="form-group">
