@@ -59,6 +59,12 @@
             <p>Manage item categories, organize products, and maintain category structure.</p>
             <a href="<%= ctx %>/categories" class="menu-btn">Manage Categories</a>
         </div>
+        
+        <div class="menu-card">
+            <h3>Help & Support</h3>
+            <p>Access system usage guidelines, troubleshooting tips, and user documentation.</p>
+            <a href="<%= ctx %>/help" class="menu-btn">View Help</a>
+        </div>
     </div>
 </div>
 
