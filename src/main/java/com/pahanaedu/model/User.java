@@ -1,5 +1,6 @@
 package com.pahanaedu.model;
 
+import com.pahanaedu.enums.UserRole;
 import java.time.LocalDateTime;
 
 public class User {
@@ -8,7 +9,7 @@ public class User {
     private String password;
     private String firstName;
     private String lastName;
-    private String role;
+    private UserRole role;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
@@ -16,12 +17,20 @@ public class User {
     public User() {
     }
 
-    public User(String email, String password, String firstName, String lastName, String role) {
+    public User(String email, String password, String firstName, String lastName, UserRole role) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
+    }
+
+    public User(String email, String password, String firstName, String lastName, String role) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = UserRole.fromString(role);
     }
 
     public int getUserId() {
@@ -65,10 +74,18 @@ public class User {
     }
 
     public String getRole() {
+        return role != null ? role.toString() : null;
+    }
+
+    public UserRole getRoleEnum() {
         return role;
     }
 
     public void setRole(String role) {
+        this.role = role != null ? UserRole.fromString(role) : null;
+    }
+
+    public void setRole(UserRole role) {
         this.role = role;
     }
 
@@ -100,15 +117,15 @@ public class User {
         return firstName + " " + lastName;
     }
 
-    public boolean hasRole(User user, String requiredRole) {
-        return user != null && requiredRole.equals(user.getRole());
-    }
-
     public boolean isAdmin() {
-        return this.role.equals("admin");
+        return UserRole.ADMIN.equals(this.role);
     }
 
-    public boolean isStaff() {
-        return this.role.equals("staff");
+    public boolean isCashier() {
+        return UserRole.CASHIER.equals(this.role);
+    }
+
+    public String getRoleCssClass() {
+        return role != null ? role.getCssClass() : "";
     }
 }

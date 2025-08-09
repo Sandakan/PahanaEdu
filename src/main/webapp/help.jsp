@@ -41,7 +41,6 @@
         <div class="help-section">
             <h3>Getting Started</h3>
             <div class="help-card">
-                <h4>Welcome to Pahana Edu Billing System</h4>
                 <p>This system is designed to help educational institutions in Sri Lanka manage their billing operations efficiently. All monetary values are displayed in Sri Lankan Rupees (LKR).</p>
                 <ul>
                     <li>Access different modules from the dashboard</li>
@@ -54,7 +53,6 @@
         <div class="help-section">
             <h3>Customer Management</h3>
             <div class="help-card">
-                <h4>Managing Customer Accounts</h4>
                 <p>Create and manage customer profiles with automatic account number generation.</p>
                 <ul>
                     <li><strong>Add Customer:</strong> Click "Add New Customer" and fill in the required details</li>
@@ -69,22 +67,31 @@
         <div class="help-section">
             <h3>Category & Item Management</h3>
             <div class="help-card">
-                <h4>Organizing Your Inventory</h4>
                 <p>Categories help organize items systematically. Items must be assigned to categories.</p>
+                <% if (user.isAdmin()) { %>
                 <ul>
                     <li><strong>Categories:</strong> Create categories first (e.g., "Books", "Stationery", "Uniforms")</li>
                     <li><strong>Items:</strong> Each item must be assigned to a category</li>
                     <li><strong>Pricing:</strong> Item prices are in LKR with automatic formatting (0.00)</li>
                     <li><strong>Validation:</strong> Item names must be unique, prices must be greater than 0</li>
                     <li><strong>Dependencies:</strong> Cannot delete categories that have items assigned to them</li>
+                    <li><strong>Admin Access:</strong> You can create, edit, and delete categories and items</li>
                 </ul>
+                <% } else { %>
+                <ul>
+                    <li><strong>View Only Access:</strong> As a cashier, you can view categories and items but cannot modify them</li>
+                    <li><strong>Pricing Information:</strong> All item prices are displayed for billing purposes</li>
+                    <li><strong>Category Organization:</strong> Items are organized by categories for easy browsing</li>
+                    <li><strong>Stock Information:</strong> View available items and their current pricing</li>
+                    <li><strong>Admin Required:</strong> Contact an administrator to add or modify items and categories</li>
+                </ul>
+                <% } %>
             </div>
         </div>
 
         <div class="help-section">
             <h3>Bill Management</h3>
             <div class="help-card">
-                <h4>Creating and Managing Bills</h4>
                 <p>The complete billing system with dynamic item management and real-time calculations.</p>
                 <ul>
                     <li><strong>Create Bill:</strong> Select a customer first, then add items dynamically</li>
@@ -94,14 +101,43 @@
                     <li><strong>Payment Status:</strong> Pending, Paid, Cancelled</li>
                     <li><strong>Print Bills:</strong> Use the "View/Print" option for clean printable format</li>
                     <li><strong>Edit Bills:</strong> Modify existing bills including items and payment details</li>
+                    <% if (!user.isAdmin()) { %>
+                    <li><strong>Note:</strong> As a cashier, you cannot delete bills (admin permission required)</li>
+                    <% } else { %>
+                    <li><strong>Delete Bills:</strong> Admin-only feature for removing bills from the system</li>
+                    <% } %>
                 </ul>
             </div>
         </div>
 
+        <% if (user.isAdmin()) { %>
+        <div class="help-section">
+            <h3>User Management (Admin Only)</h3>
+            <div class="help-card">
+                <p>Comprehensive user management system for administrators to control access and roles.</p>
+                <ul>
+                    <li><strong>User Roles:</strong> Admin (full access), Cashier (basic operations)</li>
+                    <li><strong>Create Users:</strong> Add new users with email, name, role, and password</li>
+                    <li><strong>Edit Users:</strong> Modify user information and change passwords</li>
+                    <li><strong>Delete Users:</strong> Remove users from the system (cannot delete your own account)</li>
+                    <li><strong>Email Validation:</strong> Each user must have a unique email address</li>
+                    <li><strong>Password Security:</strong> Minimum 6 characters, confirm password required</li>
+                    <li><strong>Role-based Access:</strong> Only admins can access user management features</li>
+                </ul>
+            </div>
+            
+            <div class="help-card">
+                <ul>
+                    <li><strong>Admin:</strong> Full system access including user management</li>
+                    <li><strong>Cashier:</strong> Bill creation, customer management, item viewing</li>
+                </ul>
+            </div>
+        </div>
+        <% } %>
+
         <div class="help-section">
             <h3>Navigation & Security</h3>
             <div class="help-card">
-                <h4>System Navigation</h4>
                 <ul>
                     <li><strong>Dashboard:</strong> Central hub for accessing all modules</li>
                     <li><strong>Breadcrumbs:</strong> Show your current location in the system</li>
@@ -115,7 +151,6 @@
         <div class="help-section">
             <h3>Data Management</h3>
             <div class="help-card">
-                <h4>Data Integrity & Safety</h4>
                 <ul>
                     <li><strong>Soft Deletes:</strong> Items are marked as deleted but preserved in database</li>
                     <li><strong>Validation:</strong> Multi-layer validation prevents invalid data entry</li>
@@ -129,7 +164,6 @@
         <div class="help-section">
             <h3>Troubleshooting</h3>
             <div class="help-card">
-                <h4>Common Issues & Solutions</h4>
                 <ul>
                     <li><strong>Cannot delete category:</strong> Remove all items from the category first</li>
                     <li><strong>Duplicate email error:</strong> Each customer must have a unique email address</li>
@@ -141,13 +175,23 @@
         </div>
 
         <div class="help-section">
-            <h3>User Roles</h3>
+            <h3>User Roles & Permissions</h3>
             <div class="help-card">
-                <h4>System Access Levels</h4>
+                <p>The system supports role-based access control to ensure proper security and workflow management.</p>
                 <ul>
-                    <li><strong>Admin:</strong> Full access to all system features and data management</li>
-                    <li><strong>Cashier:</strong> Access to billing, customer management, and basic operations</li>
-                    <li><strong>Role Badge:</strong> Your current role is displayed in the header</li>
+                    <li><strong>Your Role:</strong> <%= user.getRoleEnum() %> (displayed in the header)</li>
+                    <% if (user.isAdmin()) { %>
+                    <li><strong>Admin Permissions:</strong> Full system access including user management, item/category editing, and bill deletion</li>
+                    <li><strong>User Management:</strong> Create, edit, and delete user accounts</li>
+                    <li><strong>Inventory Control:</strong> Manage pricing, categories, and product information</li>
+                    <li><strong>System Administration:</strong> Full access to all modules and data management</li>
+                    <% } else { %>
+                    <li><strong>Cashier Permissions:</strong> Billing operations, customer management, and inventory viewing</li>
+                    <li><strong>Billing Operations:</strong> Create and edit bills, process payments, print receipts</li>
+                    <li><strong>Customer Service:</strong> Add and edit customer information</li>
+                    <li><strong>Read-Only Access:</strong> View items and categories but cannot modify pricing</li>
+                    <li><strong>Security Restrictions:</strong> Cannot delete bills or access user management</li>
+                    <% } %>
                 </ul>
             </div>
         </div>
@@ -155,12 +199,10 @@
         <div class="help-section">
             <h3>Contact Information</h3>
             <div class="help-card">
-                <h4>Need Additional Help?</h4>
                 <p>For technical support or system-related issues, please contact your system administrator.</p>
                 <ul>
                     <li>System Version: Pahana Edu Billing System v1.0</li>
                     <li>Built with Jakarta EE and MySQL</li>
-                    <li>Optimized for educational institutions in Sri Lanka</li>
                 </ul>
             </div>
         </div>

@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -306,6 +307,15 @@ public class BillServlet extends HttpServlet {
 
     private void deleteBill(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Only admins can delete bills
+        HttpSession session = request.getSession(false);
+        User currentUser = (User) session.getAttribute("user");
+
+        if (currentUser == null || !currentUser.isAdmin()) {
+            request.setAttribute("error", "You don't have permission to delete bills.");
+            listBills(request, response);
+            return;
+        }
 
         try {
             int billId = Integer.parseInt(request.getParameter("id"));

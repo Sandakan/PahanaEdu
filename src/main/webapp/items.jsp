@@ -41,7 +41,9 @@
 
     <div class="content-header">
         <h2>Item Management</h2>
+        <% if (user.isAdmin()) { %>
         <a href="<%= ctx %>/items?action=new" class="btn btn-primary">Add New Item</a>
+        <% } %>
     </div>
 
     <% if (successMessage != null) { %>
@@ -86,10 +88,14 @@
             </td>
             <td>
                 <div class="actions">
+                    <% if (user.isAdmin()) { %>
                     <a href="<%= ctx %>/items?action=edit&id=<%= item.getItemId() %>"
                        class="btn btn-warning">Edit</a>
                     <a href="<%= ctx %>/items?action=delete&id=<%= item.getItemId() %>"
                        class="btn btn-danger">Delete</a>
+                    <% } else { %>
+                    <span class="text-muted">View Only</span>
+                    <% } %>
                 </div>
             </td>
         </tr>
