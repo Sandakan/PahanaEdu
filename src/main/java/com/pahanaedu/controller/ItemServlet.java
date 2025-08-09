@@ -89,7 +89,7 @@ public class ItemServlet extends HttpServlet {
         // Only admins can create items
         HttpSession session = request.getSession(false);
         User currentUser = (User) session.getAttribute("user");
-        
+
         if (currentUser == null || !currentUser.isAdmin()) {
             request.setAttribute("error", "You don't have permission to create items.");
             listItems(request, response);
@@ -106,7 +106,7 @@ public class ItemServlet extends HttpServlet {
         // Only admins can edit items
         HttpSession session = request.getSession(false);
         User currentUser = (User) session.getAttribute("user");
-        
+
         if (currentUser == null || !currentUser.isAdmin()) {
             request.setAttribute("error", "You don't have permission to edit items.");
             listItems(request, response);
@@ -137,7 +137,7 @@ public class ItemServlet extends HttpServlet {
         // Only admins can create items
         HttpSession session = request.getSession(false);
         User currentUser = (User) session.getAttribute("user");
-        
+
         if (currentUser == null || !currentUser.isAdmin()) {
             request.setAttribute("error", "You don't have permission to create items.");
             listItems(request, response);
@@ -204,7 +204,7 @@ public class ItemServlet extends HttpServlet {
         // Only admins can update items
         HttpSession session = request.getSession(false);
         User currentUser = (User) session.getAttribute("user");
-        
+
         if (currentUser == null || !currentUser.isAdmin()) {
             request.setAttribute("error", "You don't have permission to update items.");
             listItems(request, response);
@@ -272,7 +272,7 @@ public class ItemServlet extends HttpServlet {
         // Only admins can delete items
         HttpSession session = request.getSession(false);
         User currentUser = (User) session.getAttribute("user");
-        
+
         if (currentUser == null || !currentUser.isAdmin()) {
             request.setAttribute("error", "You don't have permission to delete items.");
             listItems(request, response);

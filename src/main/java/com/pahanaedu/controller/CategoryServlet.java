@@ -60,13 +60,13 @@ public class CategoryServlet extends HttpServlet {
         // Only admins can create categories
         HttpSession session = request.getSession(false);
         User currentUser = (User) session.getAttribute("user");
-        
+
         if (currentUser == null || !currentUser.isAdmin()) {
             request.setAttribute("error", "You don't have permission to create categories.");
             listCategories(request, response);
             return;
         }
-        
+
         request.getRequestDispatcher("/category-form.jsp").forward(request, response);
     }
 
@@ -75,13 +75,13 @@ public class CategoryServlet extends HttpServlet {
         // Only admins can edit categories
         HttpSession session = request.getSession(false);
         User currentUser = (User) session.getAttribute("user");
-        
+
         if (currentUser == null || !currentUser.isAdmin()) {
             request.setAttribute("error", "You don't have permission to edit categories.");
             listCategories(request, response);
             return;
         }
-        
+
         try {
             int categoryId = Integer.parseInt(request.getParameter("id"));
             Category category = categoryDAO.getCategoryById(categoryId);
@@ -105,13 +105,13 @@ public class CategoryServlet extends HttpServlet {
         // Only admins can delete categories
         HttpSession session = request.getSession(false);
         User currentUser = (User) session.getAttribute("user");
-        
+
         if (currentUser == null || !currentUser.isAdmin()) {
             request.setAttribute("error", "You don't have permission to delete categories.");
             listCategories(request, response);
             return;
         }
-        
+
         try {
             int categoryId = Integer.parseInt(request.getParameter("id"));
 
@@ -161,13 +161,13 @@ public class CategoryServlet extends HttpServlet {
         // Only admins can create categories
         HttpSession session = request.getSession(false);
         User currentUser = (User) session.getAttribute("user");
-        
+
         if (currentUser == null || !currentUser.isAdmin()) {
             request.setAttribute("error", "You don't have permission to create categories.");
             listCategories(request, response);
             return;
         }
-        
+
         String name = request.getParameter("name");
         String description = request.getParameter("description");
 
@@ -212,13 +212,13 @@ public class CategoryServlet extends HttpServlet {
         // Only admins can update categories
         HttpSession session = request.getSession(false);
         User currentUser = (User) session.getAttribute("user");
-        
+
         if (currentUser == null || !currentUser.isAdmin()) {
             request.setAttribute("error", "You don't have permission to update categories.");
             listCategories(request, response);
             return;
         }
-        
+
         try {
             int categoryId = Integer.parseInt(request.getParameter("categoryId"));
             String name = request.getParameter("name");

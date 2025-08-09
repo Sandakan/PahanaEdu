@@ -18,19 +18,16 @@
 	color: #09090b;
 	margin: 0 0 1rem 0;
 	padding-bottom: 0.5rem;
-	border-bottom: 2px solid #3b82f6;
 	font-size: 1.25rem;
 	font-weight: 600;
 }
 
 .help-card {
 	background-color: rgba(241, 245, 249, 0.3);
-	border-left: 4px solid #3b82f6;
 	padding: 1rem;
 	margin-bottom: 1rem;
-	border-radius: 0 1rem 1rem 0;
+	border-radius: 1rem;
 	border: 1px solid #e2e8f0;
-	border-left: 4px solid #3b82f6;
 }
 
 .help-card:last-child {
@@ -48,7 +45,6 @@
 	margin: 0 0 0.5rem 0;
 	color: #64748b;
 	line-height: 1.5;
-	font-size: 0.875rem;
 }
 
 .help-card ul {
@@ -60,7 +56,6 @@
 .help-card li {
 	margin-bottom: 0.5rem;
 	line-height: 1.4;
-	font-size: 0.875rem;
 }
 
 .help-card li strong {

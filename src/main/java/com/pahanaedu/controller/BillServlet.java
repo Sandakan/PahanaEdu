@@ -310,7 +310,7 @@ public class BillServlet extends HttpServlet {
         // Only admins can delete bills
         HttpSession session = request.getSession(false);
         User currentUser = (User) session.getAttribute("user");
-        
+
         if (currentUser == null || !currentUser.isAdmin()) {
             request.setAttribute("error", "You don't have permission to delete bills.");
             listBills(request, response);
