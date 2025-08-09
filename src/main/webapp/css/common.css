@@ -55,6 +55,11 @@ body {
 	color: white;
 }
 
+.btn-info:hover {
+	background: #138496;
+	transform: translateY(-2px);
+}
+
 .btn-danger {
 	background: #dc3545;
 	color: white;

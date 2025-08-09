@@ -1,7 +1,9 @@
 package com.pahanaedu.controller;
 
 import com.pahanaedu.dao.CustomerDAO;
+import com.pahanaedu.dao.BillDAO;
 import com.pahanaedu.model.Customer;
+import com.pahanaedu.model.Bill;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,10 +16,12 @@ import java.util.List;
 @WebServlet("/customers")
 public class CustomerServlet extends HttpServlet {
     private CustomerDAO customerDAO;
+    private BillDAO billDAO;
 
     @Override
     public void init() {
         customerDAO = new CustomerDAO();
+        billDAO = new BillDAO();
     }
 
     @Override
@@ -116,7 +120,10 @@ public class CustomerServlet extends HttpServlet {
             Customer customer = customerDAO.getCustomerById(customerId);
 
             if (customer != null) {
+                List<Bill> customerBills = billDAO.getBillsByCustomer(customerId);
+
                 request.setAttribute("customer", customer);
+                request.setAttribute("customerBills", customerBills);
                 request.getRequestDispatcher("/account-details.jsp").forward(request, response);
             } else {
                 request.setAttribute("error", "Customer not found");

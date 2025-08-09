@@ -108,6 +108,18 @@ public class BillServlet extends HttpServlet {
         List<Customer> customers = customerDAO.getAllCustomers();
         List<Item> items = itemDAO.getAllItems();
 
+        String customerIdParam = request.getParameter("customerId");
+        if (customerIdParam != null) {
+            try {
+                int customerId = Integer.parseInt(customerIdParam);
+                Customer selectedCustomer = customerDAO.getCustomerById(customerId);
+                if (selectedCustomer != null) {
+                    request.setAttribute("selectedCustomerId", customerId);
+                }
+            } catch (NumberFormatException e) {
+            }
+        }
+
         request.setAttribute("customers", customers);
         request.setAttribute("items", items);
         request.getRequestDispatcher("/bill-form.jsp").forward(request, response);

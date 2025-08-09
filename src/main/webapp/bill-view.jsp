@@ -44,7 +44,7 @@
     <div class="content-header no-print">
         <h2>Bill Details</h2>
         <div class="action-buttons">
-            <button class="btn btn-primary">Print Bill</button>
+            <button id="printBillBtn" class="btn btn-primary">Print Bill</button>
             <% if (bill != null) { %>
             <a href="<%= ctx %>/bills?action=edit&id=<%= bill.getBillId() %>" class="btn btn-warning">Edit Bill</a>
             <% } %>
@@ -62,7 +62,6 @@
     <div class="bill-container">
         <div class="company-header">
             <h1>Pahana Edu Billing System</h1>
-            <p>Educational Institution Billing</p>
             <p>Sri Lanka</p>
         </div>
 

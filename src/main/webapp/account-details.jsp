@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.pahanaedu.model.User" %>
 <%@ page import="com.pahanaedu.model.Customer" %>
+<%@ page import="com.pahanaedu.model.Bill" %>
+<%@ page import="java.util.List" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%
     User user = (User) session.getAttribute("user");
@@ -11,6 +13,7 @@
 
     String ctx = request.getContextPath();
     Customer customer = (Customer) request.getAttribute("customer");
+    List<Bill> customerBills = (List<Bill>) request.getAttribute("customerBills");
     String errorMessage = (String) request.getAttribute("error");
 %>
 <!DOCTYPE html>
@@ -117,6 +120,92 @@
             <a href="<%= ctx %>/customers?action=delete&id=<%= customer.getCustomerId() %>"
                class="btn btn-danger">Delete Customer</a>
         </div>
+    </div>
+
+    <div class="purchase-history-container">
+        <div class="section-header">
+            <h3>Purchase History</h3>
+            <% if (customerBills != null && !customerBills.isEmpty()) { %>
+            <span class="total-orders-badge"><%= customerBills.size() %> orders</span>
+            <% } %>
+        </div>
+
+        <% if (customerBills != null && !customerBills.isEmpty()) { %>
+        <div class="bills-table-container">
+            <table class="table bills-table">
+                <thead>
+                <tr>
+                    <th>Bill ID</th>
+                    <th>Date</th>
+                    <th>Total Amount</th>
+                    <th>Payment Method</th>
+                    <th>Payment Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (Bill bill : customerBills) { %>
+                <tr>
+                    <td class="bill-id">#<%= bill.getBillId() %>
+                    </td>
+                    <td class="bill-date">
+                        <%= bill.getCreatedAt() != null ? bill.getCreatedAt().format(DateTimeFormatter.ofPattern("MMM dd, yyyy")) : "-" %>
+                    </td>
+                    <td class="bill-amount">
+                        LKR <%= String.format("%,.2f", bill.getTotalAmount()) %>
+                    </td>
+                    <td class="payment-method">
+                                <span class="payment-badge <%= bill.getPaymentMethod().getCssClass() %>">
+                                    <%= bill.getPaymentMethod().getDisplayName() %>
+                                </span>
+                    </td>
+                    <td class="payment-status">
+                                <span class="status-badge <%= bill.getPaymentStatus().getCssClass() %>">
+                                    <%= bill.getPaymentStatus().getDisplayName() %>
+                                </span>
+                    </td>
+                    <td class="bill-actions">
+                        <a href="<%= ctx %>/bills?action=view&id=<%= bill.getBillId() %>"
+                           class="btn btn-info btn-sm">View</a>
+                    </td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="purchase-summary">
+            <div class="summary-stats">
+                <div class="stat-item">
+                    <label>Total Orders:</label>
+                    <span class="stat-value"><%= customerBills.size() %></span>
+                </div>
+                <div class="stat-item">
+                    <label>Total Spent:</label>
+                    <span class="stat-value">
+                            LKR <%= String.format("%,.2f", customerBills.stream()
+                            .map(Bill::getTotalAmount)
+                            .reduce(java.math.BigDecimal.ZERO, java.math.BigDecimal::add)) %>
+                        </span>
+                </div>
+                <div class="stat-item">
+                    <label>Last Order:</label>
+                    <span class="stat-value">
+                            <%= customerBills.get(0).getCreatedAt() != null ?
+                                    customerBills.get(0).getCreatedAt().format(DateTimeFormatter.ofPattern("MMM dd, yyyy")) :
+                                    "Never" %>
+                        </span>
+                </div>
+            </div>
+        </div>
+        <% } else { %>
+        <div class="empty-state">
+            <h4>No Purchase History</h4>
+            <p>This customer hasn't made any purchases yet.</p>
+            <a href="<%= ctx %>/bills?action=new&customerId=<%= customer.getCustomerId() %>"
+               class="btn btn-primary">Create First Bill</a>
+        </div>
+        <% } %>
     </div>
     <% } else { %>
     <div class="empty-state">

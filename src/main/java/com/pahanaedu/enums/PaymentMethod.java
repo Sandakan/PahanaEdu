@@ -21,6 +21,21 @@ public enum PaymentMethod {
         }
     }
 
+    public String getCssClass() {
+        switch (this) {
+            case CASH:
+                return "payment-cash";
+            case CREDIT_CARD:
+                return "payment-credit-card";
+            case DEBIT_CARD:
+                return "payment-debit-card";
+            case BANK_TRANSFER:
+                return "payment-bank-transfer";
+            default:
+                return "payment-default";
+        }
+    }
+
     public String getIconClass() {
         switch (this) {
             case CASH:

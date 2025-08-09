@@ -19,6 +19,7 @@
     List<Customer> customers = (List<Customer>) request.getAttribute("customers");
     List<Item> items = (List<Item>) request.getAttribute("items");
     String errorMessage = (String) request.getAttribute("error");
+    Integer selectedCustomerId = (Integer) request.getAttribute("selectedCustomerId");
 
     boolean isEdit = bill != null;
     String pageTitle = isEdit ? "Edit Bill" : "Create New Bill";
@@ -73,7 +74,8 @@
                         <option value="">-- Select Customer --</option>
                         <% if (customers != null) {
                             for (Customer customer : customers) {
-                                boolean selected = isEdit && bill.getCustomerId() == customer.getCustomerId();
+                                boolean selected = (isEdit && bill.getCustomerId() == customer.getCustomerId()) ||
+                                                 (!isEdit && selectedCustomerId != null && selectedCustomerId == customer.getCustomerId());
                         %>
                         <option value="<%= customer.getCustomerId() %>" <%= selected ? "selected" : "" %>>
                             <%= customer.getAccountNumber() %> - <%= customer.getName() %>
@@ -149,7 +151,7 @@
                             <input type="number" id="quantityInput" min="1" value="1">
                         </div>
                         <div class="form-group">
-                            <button type="button" class="btn btn-secondary" onclick="addItemToBill()">Add Item</button>
+                            <button type="button" class="btn btn-secondary add-item-to-bill" onclick="addItemToBill()">Add Item</button>
                         </div>
                     </div>
                 </div>
