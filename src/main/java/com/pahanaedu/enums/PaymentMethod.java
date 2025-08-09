@@ -36,18 +36,17 @@ public enum PaymentMethod {
         }
     }
 
-    public String getIconClass() {
-        switch (this) {
-            case CASH:
-                return "icon-cash";
-            case CREDIT_CARD:
-                return "icon-credit-card";
-            case DEBIT_CARD:
-                return "icon-debit-card";
-            case BANK_TRANSFER:
-                return "icon-bank-transfer";
-            default:
-                return "icon-payment";
+    public static PaymentMethod fromString(String value) {
+        if (value == null) {
+            return null;
         }
+
+        for (PaymentMethod method : PaymentMethod.values()) {
+            if (method.name().equalsIgnoreCase(value)) {
+                return method;
+            }
+        }
+
+        throw new IllegalArgumentException("Invalid payment method: " + value);
     }
 }

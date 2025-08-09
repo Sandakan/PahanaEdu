@@ -4,6 +4,17 @@ public enum UserRole {
     ADMIN,
     CASHIER;
 
+    public String getDisplayName() {
+        switch (this) {
+            case ADMIN:
+                return "Administrator";
+            case CASHIER:
+                return "Cashier";
+            default:
+                return name();
+        }
+    }
+
     public String getCssClass() {
         return "role-" + name().toLowerCase();
     }

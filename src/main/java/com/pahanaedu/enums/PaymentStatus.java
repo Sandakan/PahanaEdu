@@ -30,4 +30,18 @@ public enum PaymentStatus {
                 return "status-default";
         }
     }
+
+    public static PaymentStatus fromString(String value) {
+        if (value == null) {
+            return null;
+        }
+
+        for (PaymentStatus status : PaymentStatus.values()) {
+            if (status.name().equalsIgnoreCase(value)) {
+                return status;
+            }
+        }
+
+        throw new IllegalArgumentException("Invalid payment status: " + value);
+    }
 }
