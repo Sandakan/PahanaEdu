@@ -3,9 +3,6 @@ package com.pahanaedu.service;
 import com.pahanaedu.dao.UserDAO;
 import com.pahanaedu.model.User;
 
-/**
- * Service class for user authentication and authorization
- */
 public class AuthService {
     private final UserDAO userDAO;
 
