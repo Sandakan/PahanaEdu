@@ -174,7 +174,7 @@ function validateForm(event) {
 
 	if (errors.length > 0) {
 		event.preventDefault();
-		app.showAlert('Please correct the following errors:\n• ' + errors.join('\n• '), 'error');
+		app.showAlert('Please correct the following errors:\n• ' + errors.join('\n• '));
 		return false;
 	}
 
