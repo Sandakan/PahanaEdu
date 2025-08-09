@@ -4,11 +4,13 @@ import com.pahanaedu.dao.CategoryDAO;
 import com.pahanaedu.dao.ItemDAO;
 import com.pahanaedu.model.Category;
 import com.pahanaedu.model.Item;
+import com.pahanaedu.model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -84,6 +86,15 @@ public class ItemServlet extends HttpServlet {
 
     private void showNewItemForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Only admins can create items
+        HttpSession session = request.getSession(false);
+        User currentUser = (User) session.getAttribute("user");
+        
+        if (currentUser == null || !currentUser.isAdmin()) {
+            request.setAttribute("error", "You don't have permission to create items.");
+            listItems(request, response);
+            return;
+        }
 
         List<Category> categories = categoryDAO.getAllCategories();
         request.setAttribute("categories", categories);
@@ -92,6 +103,15 @@ public class ItemServlet extends HttpServlet {
 
     private void showEditItemForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Only admins can edit items
+        HttpSession session = request.getSession(false);
+        User currentUser = (User) session.getAttribute("user");
+        
+        if (currentUser == null || !currentUser.isAdmin()) {
+            request.setAttribute("error", "You don't have permission to edit items.");
+            listItems(request, response);
+            return;
+        }
 
         try {
             int itemId = Integer.parseInt(request.getParameter("id"));
@@ -114,6 +134,15 @@ public class ItemServlet extends HttpServlet {
 
     private void createItem(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Only admins can create items
+        HttpSession session = request.getSession(false);
+        User currentUser = (User) session.getAttribute("user");
+        
+        if (currentUser == null || !currentUser.isAdmin()) {
+            request.setAttribute("error", "You don't have permission to create items.");
+            listItems(request, response);
+            return;
+        }
 
         String name = request.getParameter("name");
         String description = request.getParameter("description");
@@ -172,6 +201,15 @@ public class ItemServlet extends HttpServlet {
 
     private void updateItem(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Only admins can update items
+        HttpSession session = request.getSession(false);
+        User currentUser = (User) session.getAttribute("user");
+        
+        if (currentUser == null || !currentUser.isAdmin()) {
+            request.setAttribute("error", "You don't have permission to update items.");
+            listItems(request, response);
+            return;
+        }
 
         try {
             int itemId = Integer.parseInt(request.getParameter("itemId"));
@@ -231,6 +269,15 @@ public class ItemServlet extends HttpServlet {
 
     private void deleteItem(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Only admins can delete items
+        HttpSession session = request.getSession(false);
+        User currentUser = (User) session.getAttribute("user");
+        
+        if (currentUser == null || !currentUser.isAdmin()) {
+            request.setAttribute("error", "You don't have permission to delete items.");
+            listItems(request, response);
+            return;
+        }
 
         try {
             int itemId = Integer.parseInt(request.getParameter("id"));

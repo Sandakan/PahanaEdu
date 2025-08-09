@@ -111,8 +111,10 @@
                     <a href="<%= ctx %>/bills?action=updateStatus&id=<%= bill.getBillId() %>&status=PAID"
                        class="btn btn-success btn-sm">Mark Paid</a>
                     <% } %>
+                    <% if (user.isAdmin()) { %>
                     <a href="<%= ctx %>/bills?action=delete&id=<%= bill.getBillId() %>"
                        class="btn btn-danger btn-sm">Delete</a>
+                    <% } %>
                 </div>
             </td>
         </tr>

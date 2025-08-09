@@ -2,11 +2,13 @@ package com.pahanaedu.controller;
 
 import com.pahanaedu.dao.CategoryDAO;
 import com.pahanaedu.model.Category;
+import com.pahanaedu.model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.List;
@@ -55,11 +57,31 @@ public class CategoryServlet extends HttpServlet {
 
     protected void showNewCategoryForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Only admins can create categories
+        HttpSession session = request.getSession(false);
+        User currentUser = (User) session.getAttribute("user");
+        
+        if (currentUser == null || !currentUser.isAdmin()) {
+            request.setAttribute("error", "You don't have permission to create categories.");
+            listCategories(request, response);
+            return;
+        }
+        
         request.getRequestDispatcher("/category-form.jsp").forward(request, response);
     }
 
     protected void showEditCategoryForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Only admins can edit categories
+        HttpSession session = request.getSession(false);
+        User currentUser = (User) session.getAttribute("user");
+        
+        if (currentUser == null || !currentUser.isAdmin()) {
+            request.setAttribute("error", "You don't have permission to edit categories.");
+            listCategories(request, response);
+            return;
+        }
+        
         try {
             int categoryId = Integer.parseInt(request.getParameter("id"));
             Category category = categoryDAO.getCategoryById(categoryId);
@@ -80,6 +102,16 @@ public class CategoryServlet extends HttpServlet {
 
     protected void deleteCategory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Only admins can delete categories
+        HttpSession session = request.getSession(false);
+        User currentUser = (User) session.getAttribute("user");
+        
+        if (currentUser == null || !currentUser.isAdmin()) {
+            request.setAttribute("error", "You don't have permission to delete categories.");
+            listCategories(request, response);
+            return;
+        }
+        
         try {
             int categoryId = Integer.parseInt(request.getParameter("id"));
 
@@ -126,6 +158,16 @@ public class CategoryServlet extends HttpServlet {
 
     protected void createCategory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Only admins can create categories
+        HttpSession session = request.getSession(false);
+        User currentUser = (User) session.getAttribute("user");
+        
+        if (currentUser == null || !currentUser.isAdmin()) {
+            request.setAttribute("error", "You don't have permission to create categories.");
+            listCategories(request, response);
+            return;
+        }
+        
         String name = request.getParameter("name");
         String description = request.getParameter("description");
 
@@ -167,6 +209,16 @@ public class CategoryServlet extends HttpServlet {
 
     protected void updateCategory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Only admins can update categories
+        HttpSession session = request.getSession(false);
+        User currentUser = (User) session.getAttribute("user");
+        
+        if (currentUser == null || !currentUser.isAdmin()) {
+            request.setAttribute("error", "You don't have permission to update categories.");
+            listCategories(request, response);
+            return;
+        }
+        
         try {
             int categoryId = Integer.parseInt(request.getParameter("categoryId"));
             String name = request.getParameter("name");

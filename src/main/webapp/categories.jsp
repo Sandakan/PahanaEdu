@@ -40,7 +40,9 @@
 
     <div class="content-header">
         <h2>Category Management</h2>
+        <% if (user.isAdmin()) { %>
         <a href="<%= ctx %>/categories?action=new" class="btn btn-primary">Add New Category</a>
+        <% } %>
     </div>
 
     <% if (successMessage != null) { %>
@@ -79,10 +81,14 @@
             </td>
             <td>
                 <div class="actions">
+                    <% if (user.isAdmin()) { %>
                     <a href="<%= ctx %>/categories?action=edit&id=<%= category.getCategoryId() %>"
                        class="btn btn-warning">Edit</a>
                     <a href="<%= ctx %>/categories?action=delete&id=<%= category.getCategoryId() %>"
                        class="btn btn-danger">Delete</a>
+                    <% } else { %>
+                    <span class="text-muted">View Only</span>
+                    <% } %>
                 </div>
             </td>
         </tr>

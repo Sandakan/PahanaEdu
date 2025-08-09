@@ -51,14 +51,26 @@
         
         <div class="menu-card">
             <h3>Item Management</h3>
+            <% if (user.isAdmin()) { %>
             <p>Manage inventory items, add new products, and update pricing information.</p>
-            <a href="<%= ctx %>/items" class="menu-btn">Manage Items</a>
+            <% } else { %>
+            <p>View inventory items and pricing information (read-only).</p>
+            <% } %>
+            <a href="<%= ctx %>/items" class="menu-btn">
+                <%= user.isAdmin() ? "Manage Items" : "View Items" %>
+            </a>
         </div>
         
         <div class="menu-card">
             <h3>Category Management</h3>
+            <% if (user.isAdmin()) { %>
             <p>Manage item categories, organize products, and maintain category structure.</p>
-            <a href="<%= ctx %>/categories" class="menu-btn">Manage Categories</a>
+            <% } else { %>
+            <p>View item categories and product organization (read-only).</p>
+            <% } %>
+            <a href="<%= ctx %>/categories" class="menu-btn">
+                <%= user.isAdmin() ? "Manage Categories" : "View Categories" %>
+            </a>
         </div>
         
         <% if (user.isAdmin()) { %>
