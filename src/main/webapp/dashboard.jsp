@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.pahanaedu.model.User" %>
+<%@ page import="com.pahanaedu.enums.UserRole" %>
 <%
     User user = (User) session.getAttribute("user");
     if (user == null) {
@@ -23,7 +24,7 @@
     <h1>Pahana Edu Billing System</h1>
     <div class="user-info">
         <span class="user-name">Welcome, <%= user.getFullName() %></span>
-        <span class="role-badge"><%= user.getRole() %></span>
+        <span class="role-badge <%= user.getRoleCssClass() %>"><%= user.getRoleEnum() %></span>
         <a href="<%= request.getContextPath() %>/logout" class="logout-btn">Logout</a>
     </div>
 </div>
@@ -31,7 +32,7 @@
 <div class="container">
     <div class="welcome-card">
         <h2>Welcome to Pahana Edu Billing System</h2>
-        <p>You are logged in as <strong><%= user.getRole() %>
+        <p>You are logged in as <strong><%= user.getRoleEnum() %>
         </strong>. Select an option below to get started.</p>
     </div>
 
@@ -59,6 +60,14 @@
             <p>Manage item categories, organize products, and maintain category structure.</p>
             <a href="<%= ctx %>/categories" class="menu-btn">Manage Categories</a>
         </div>
+        
+        <% if (user.isAdmin()) { %>
+        <div class="menu-card">
+            <h3>User Management</h3>
+            <p>Manage system users, add new users, edit user roles, and maintain user accounts.</p>
+            <a href="<%= ctx %>/users" class="menu-btn">Manage Users</a>
+        </div>
+        <% } %>
         
         <div class="menu-card">
             <h3>Help & Support</h3>

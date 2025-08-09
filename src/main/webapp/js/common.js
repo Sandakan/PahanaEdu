@@ -53,6 +53,16 @@ document.addEventListener('DOMContentLoaded', function () {
 		app.focusFirstInput();
 	}
 
+	const alerts = document.querySelectorAll('.alert');
+	alerts.forEach((alert) => {
+		setTimeout(() => {
+			alert.style.opacity = '0';
+			setTimeout(() => {
+				alert.remove();
+			}, 300);
+		}, 5000);
+	});
+
 	document.querySelectorAll('[data-confirm]').forEach(function (element) {
 		element.addEventListener('click', function (e) {
 			const message = this.dataset.confirm;

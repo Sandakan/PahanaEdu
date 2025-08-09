@@ -28,8 +28,4 @@ public class AuthService {
 
         return null;
     }
-
-    public boolean hasRole(User user, String requiredRole) {
-        return user != null && requiredRole.equals(user.getRole());
-    }
 }

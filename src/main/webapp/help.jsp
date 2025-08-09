@@ -98,6 +98,33 @@
             </div>
         </div>
 
+        <% if (user.isAdmin()) { %>
+        <div class="help-section">
+            <h3>User Management (Admin Only)</h3>
+            <div class="help-card">
+                <h4>Managing System Users</h4>
+                <p>Comprehensive user management system for administrators to control access and roles.</p>
+                <ul>
+                    <li><strong>User Roles:</strong> Admin (full access), Cashier (basic operations)</li>
+                    <li><strong>Create Users:</strong> Add new users with email, name, role, and password</li>
+                    <li><strong>Edit Users:</strong> Modify user information and change passwords</li>
+                    <li><strong>Delete Users:</strong> Remove users from the system (cannot delete your own account)</li>
+                    <li><strong>Email Validation:</strong> Each user must have a unique email address</li>
+                    <li><strong>Password Security:</strong> Minimum 6 characters, confirm password required</li>
+                    <li><strong>Role-based Access:</strong> Only admins can access user management features</li>
+                </ul>
+            </div>
+            
+            <div class="help-card">
+                <h4>User Role Permissions</h4>
+                <ul>
+                    <li><strong>Admin:</strong> Full system access including user management</li>
+                    <li><strong>Cashier:</strong> Bill creation, customer management, item viewing</li>
+                </ul>
+            </div>
+        </div>
+        <% } %>
+
         <div class="help-section">
             <h3>Navigation & Security</h3>
             <div class="help-card">
