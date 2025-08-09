@@ -88,6 +88,8 @@
             </td>
             <td>
                 <div class="actions">
+                    <a href="<%= ctx %>/customers?action=view&id=<%= customer.getCustomerId() %>"
+                       class="btn btn-info">View Details</a>
                     <a href="<%= ctx %>/customers?action=edit&id=<%= customer.getCustomerId() %>"
                        class="btn btn-warning">Edit</a>
                     <a href="<%= ctx %>/customers?action=delete&id=<%= customer.getCustomerId() %>"
@@ -105,7 +107,7 @@
     </div>
     <% } %>
 
-    <div style="margin-top: 30px;">
+    <div class="navigation-actions">
         <a href="<%= ctx %>/dashboard" class="btn btn-secondary">Back to Dashboard</a>
     </div>
 </div>

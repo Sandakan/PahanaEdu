@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.pahanaedu.model.User" %>
 <%
-    // Check if user is logged in
     User user = (User) session.getAttribute("user");
     if (user == null) {
         response.sendRedirect(request.getContextPath() + "/login");
@@ -37,6 +36,12 @@
     </div>
 
     <div class="menu-grid">
+        <div class="menu-card">
+            <h3>Bill Management</h3>
+            <p>Create new bills, view existing bills, calculate totals, and print bill receipts.</p>
+            <a href="<%= ctx %>/bills" class="menu-btn">Manage Bills</a>
+        </div>
+        
         <div class="menu-card">
             <h3>Customer Management</h3>
             <p>Manage customer accounts, add new customers, and edit customer information.</p>

@@ -1,7 +1,9 @@
 package com.pahanaedu.controller;
 
 import com.pahanaedu.dao.CustomerDAO;
+import com.pahanaedu.dao.BillDAO;
 import com.pahanaedu.model.Customer;
+import com.pahanaedu.model.Bill;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,10 +16,12 @@ import java.util.List;
 @WebServlet("/customers")
 public class CustomerServlet extends HttpServlet {
     private CustomerDAO customerDAO;
+    private BillDAO billDAO;
 
     @Override
-    public void init()  {
+    public void init() {
         customerDAO = new CustomerDAO();
+        billDAO = new BillDAO();
     }
 
     @Override
@@ -31,14 +35,14 @@ public class CustomerServlet extends HttpServlet {
         }
 
         switch (action) {
-            case "list":
-                listCustomers(request, response);
-                break;
             case "new":
                 showNewCustomerForm(request, response);
                 break;
             case "edit":
                 showEditCustomerForm(request, response);
+                break;
+            case "view":
+                viewCustomerDetails(request, response);
                 break;
             case "delete":
                 deleteCustomer(request, response);
@@ -55,12 +59,20 @@ public class CustomerServlet extends HttpServlet {
 
         String action = request.getParameter("action");
 
-        if ("create".equals(action)) {
-            createCustomer(request, response);
-        } else if ("update".equals(action)) {
-            updateCustomer(request, response);
-        } else {
-            listCustomers(request, response);
+        if (action == null) {
+            action = "list";
+        }
+
+        switch (action) {
+            case "create":
+                createCustomer(request, response);
+                break;
+            case "update":
+                updateCustomer(request, response);
+                break;
+            default:
+                listCustomers(request, response);
+                break;
         }
     }
 
@@ -90,6 +102,29 @@ public class CustomerServlet extends HttpServlet {
             if (customer != null) {
                 request.setAttribute("customer", customer);
                 request.getRequestDispatcher("/customer-form.jsp").forward(request, response);
+            } else {
+                request.setAttribute("error", "Customer not found");
+                listCustomers(request, response);
+            }
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "Invalid customer ID");
+            listCustomers(request, response);
+        }
+    }
+
+    private void viewCustomerDetails(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        try {
+            int customerId = Integer.parseInt(request.getParameter("id"));
+            Customer customer = customerDAO.getCustomerById(customerId);
+
+            if (customer != null) {
+                List<Bill> customerBills = billDAO.getBillsByCustomer(customerId);
+
+                request.setAttribute("customer", customer);
+                request.setAttribute("customerBills", customerBills);
+                request.getRequestDispatcher("/account-details.jsp").forward(request, response);
             } else {
                 request.setAttribute("error", "Customer not found");
                 listCustomers(request, response);
