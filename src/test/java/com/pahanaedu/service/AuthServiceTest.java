@@ -1,27 +1,56 @@
 package com.pahanaedu.service;
 
-import com.pahanaedu.dao.UserDAO;
+import com.pahanaedu.helpers.DatabaseHelper;
 import com.pahanaedu.model.User;
 import com.pahanaedu.enums.UserRole;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.api.Test;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
 class AuthServiceTest {
-
-    @Mock
-    private UserDAO userDAO;
 
     private AuthService authService;
 
+    @BeforeAll
+    static void setupDatabase() throws SQLException {
+
+        try (Connection connection = DatabaseHelper.getInstance().getConnection();
+                Statement statement = connection.createStatement()) {
+
+            statement.execute("SET FOREIGN_KEY_CHECKS = 0");
+
+            statement.execute("DELETE FROM users");
+            statement.execute("ALTER TABLE users AUTO_INCREMENT = 1");
+
+            statement.execute("SET FOREIGN_KEY_CHECKS = 1");
+
+            statement.execute(
+                    "INSERT INTO users (user_id, email, password, first_name, last_name, role, created_at, updated_at) VALUES "
+                            +
+                            "(1, 'admin@pahanaedu.com', 'admin123', 'Admin', 'User', 'ADMIN', NOW(), NOW())");
+
+            statement.execute(
+                    "INSERT INTO users (user_id, email, password, first_name, last_name, role, created_at, updated_at) VALUES "
+                            +
+                            "(2, 'cashier@pahanaedu.com', 'cashier123', 'Cashier', 'User', 'CASHIER', NOW(), NOW())");
+
+            statement.execute(
+                    "INSERT INTO users (user_id, email, password, first_name, last_name, role, created_at, updated_at) VALUES "
+                            +
+                            "(3, 'test@example.com', 'password123', 'Test', 'User', 'CASHIER', NOW(), NOW())");
+
+        }
+    }
+
     @BeforeEach
     void setUp() {
-        authService = new AuthService(userDAO);
+        authService = new AuthService();
     }
 
     @Test
@@ -31,23 +60,15 @@ class AuthServiceTest {
     }
 
     @Test
-    void shouldCreateAuthServiceWithUserDAO() {
-        AuthService service = new AuthService(userDAO);
-        assertNotNull(service);
-    }
-
-    @Test
     void shouldReturnNullForInvalidInputs() {
         assertNull(authService.authenticate(null, "password"));
-        assertNull(authService.authenticate("email@test.com", null));
+        assertNull(authService.authenticate("admin@pahanaedu.com", null));
         assertNull(authService.authenticate("", "password"));
-        assertNull(authService.authenticate("email@test.com", ""));
+        assertNull(authService.authenticate("admin@pahanaedu.com", ""));
         assertNull(authService.authenticate("   ", "password"));
-        assertNull(authService.authenticate("email@test.com", "   "));
+        assertNull(authService.authenticate("admin@pahanaedu.com", "   "));
         assertNull(authService.authenticate(null, null));
         assertNull(authService.authenticate("", ""));
-
-        verifyNoInteractions(userDAO);
     }
 
     @Test
@@ -55,63 +76,79 @@ class AuthServiceTest {
         String email = "nonexistent@test.com";
         String password = "password123";
 
-        when(userDAO.getUserByEmail(email)).thenReturn(null);
-
         User result = authService.authenticate(email, password);
 
-        assertNull(result);
-        verify(userDAO).getUserByEmail(email);
-        verify(userDAO, never()).updateLastLogin(anyInt());
+        assertNull(result, "Should return null for non-existent user");
     }
 
     @Test
     void shouldReturnNullWhenPasswordIncorrect() {
-        String email = "test@example.com";
+        String email = "admin@pahanaedu.com";
         String password = "wrongPassword";
-        User mockUser = new User(email, "correctPassword", "John", "Doe", UserRole.ADMIN);
-        mockUser.setUserId(1);
-
-        when(userDAO.getUserByEmail(email)).thenReturn(mockUser);
 
         User result = authService.authenticate(email, password);
 
-        assertNull(result);
-        verify(userDAO).getUserByEmail(email);
-        verify(userDAO, never()).updateLastLogin(anyInt());
+        assertNull(result, "Should return null for incorrect password");
     }
 
     @Test
     void shouldReturnUserWhenCredentialsValid() {
-        String email = "test@example.com";
-        String password = "correctPassword";
-        User mockUser = new User(email, password, "John", "Doe", UserRole.ADMIN);
-        mockUser.setUserId(1);
-
-        when(userDAO.getUserByEmail(email)).thenReturn(mockUser);
+        String email = "admin@pahanaedu.com";
+        String password = "admin123";
 
         User result = authService.authenticate(email, password);
 
-        assertNotNull(result);
-        assertEquals(mockUser, result);
-        verify(userDAO).getUserByEmail(email);
-        verify(userDAO).updateLastLogin(1);
+        assertNotNull(result, "Should return user for valid credentials");
+        assertEquals(email, result.getEmail());
+        assertEquals("Admin", result.getFirstName());
+        assertEquals("User", result.getLastName());
+        assertEquals(UserRole.ADMIN, result.getRoleEnum());
+        assertEquals(1, result.getUserId());
+    }
+
+    @Test
+    void shouldReturnCashierUserWhenCredentialsValid() {
+        String email = "cashier@pahanaedu.com";
+        String password = "cashier123";
+
+        User result = authService.authenticate(email, password);
+
+        assertNotNull(result, "Should return cashier user for valid credentials");
+        assertEquals(email, result.getEmail());
+        assertEquals("Cashier", result.getFirstName());
+        assertEquals("User", result.getLastName());
+        assertEquals(UserRole.CASHIER, result.getRoleEnum());
+        assertEquals(2, result.getUserId());
     }
 
     @Test
     void shouldTrimAndLowercaseEmail() {
-        String email = "  TEST@EXAMPLE.COM  ";
-        String expectedEmail = "test@example.com";
-        String password = "password123";
-        User mockUser = new User(expectedEmail, password, "John", "Doe", UserRole.ADMIN);
-        mockUser.setUserId(1);
-
-        when(userDAO.getUserByEmail(expectedEmail)).thenReturn(mockUser);
+        String email = "  ADMIN@PAHANAEDU.COM  ";
+        String expectedEmail = "admin@pahanaedu.com";
+        String password = "admin123";
 
         User result = authService.authenticate(email, password);
 
-        assertNotNull(result);
-        assertEquals(mockUser, result);
-        verify(userDAO).getUserByEmail(expectedEmail);
-        verify(userDAO).updateLastLogin(1);
+        assertNotNull(result, "Should return user for trimmed and lowercased email");
+        assertEquals(expectedEmail, result.getEmail());
+        assertEquals("Admin", result.getFirstName());
+        assertEquals("User", result.getLastName());
+        assertEquals(UserRole.ADMIN, result.getRoleEnum());
+        assertEquals(1, result.getUserId());
+    }
+
+    @Test
+    void shouldReturnTestUserWhenCredentialsValid() {
+        String email = "test@example.com";
+        String password = "password123";
+
+        User result = authService.authenticate(email, password);
+
+        assertNotNull(result, "Should return test user for valid credentials");
+        assertEquals(email, result.getEmail());
+        assertEquals("Test", result.getFirstName());
+        assertEquals("User", result.getLastName());
+        assertEquals(UserRole.CASHIER, result.getRoleEnum());
+        assertEquals(3, result.getUserId());
     }
 }

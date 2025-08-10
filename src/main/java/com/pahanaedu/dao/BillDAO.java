@@ -30,7 +30,7 @@ public class BillDAO extends BaseDAO {
             while (resultSet.next()) {
                 bills.add(mapResultSetToBill(resultSet));
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -54,7 +54,7 @@ public class BillDAO extends BaseDAO {
             if (resultSet.next()) {
                 return mapResultSetToBill(resultSet);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -80,7 +80,7 @@ public class BillDAO extends BaseDAO {
             while (resultSet.next()) {
                 bills.add(mapResultSetToBill(resultSet));
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -111,7 +111,7 @@ public class BillDAO extends BaseDAO {
                 }
                 return true;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -136,7 +136,7 @@ public class BillDAO extends BaseDAO {
             statement.setInt(7, bill.getBillId());
 
             return statement.executeUpdate() > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -151,7 +151,7 @@ public class BillDAO extends BaseDAO {
 
             statement.setInt(1, billId);
             return statement.executeUpdate() > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -170,7 +170,7 @@ public class BillDAO extends BaseDAO {
             statement.setInt(2, billId);
 
             return statement.executeUpdate() > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -192,7 +192,7 @@ public class BillDAO extends BaseDAO {
                 BigDecimal total = resultSet.getBigDecimal("total");
                 return total != null ? total : BigDecimal.ZERO;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

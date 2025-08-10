@@ -20,7 +20,7 @@ public class CustomerDAO extends BaseDAO {
                 Customer customer = mapResultSetToCustomer(resultSet);
                 customers.add(customer);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -39,7 +39,7 @@ public class CustomerDAO extends BaseDAO {
             if (resultSet.next()) {
                 return mapResultSetToCustomer(resultSet);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -124,7 +124,7 @@ public class CustomerDAO extends BaseDAO {
             statement.setInt(1, customerId);
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

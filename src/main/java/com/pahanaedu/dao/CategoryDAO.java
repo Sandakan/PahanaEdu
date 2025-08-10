@@ -13,14 +13,14 @@ public class CategoryDAO extends BaseDAO {
         String query = "SELECT * FROM categories WHERE deleted_at IS NULL ORDER BY name";
 
         try (Connection connection = getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
                 Category category = mapResultSetToCategory(resultSet);
                 categories.add(category);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -31,7 +31,7 @@ public class CategoryDAO extends BaseDAO {
         String query = "SELECT * FROM categories WHERE category_id = ? AND deleted_at IS NULL";
 
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+                PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setInt(1, categoryId);
             ResultSet resultSet = statement.executeQuery();
@@ -39,7 +39,7 @@ public class CategoryDAO extends BaseDAO {
             if (resultSet.next()) {
                 return mapResultSetToCategory(resultSet);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -50,7 +50,7 @@ public class CategoryDAO extends BaseDAO {
         String query = "INSERT INTO categories (name, description) VALUES (?, ?)";
 
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+                PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
             statement.setString(1, category.getName());
             statement.setString(2, category.getDescription());
@@ -64,7 +64,7 @@ public class CategoryDAO extends BaseDAO {
                 }
                 return true;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -75,7 +75,7 @@ public class CategoryDAO extends BaseDAO {
         String query = "UPDATE categories SET name = ?, description = ? WHERE category_id = ? AND deleted_at IS NULL";
 
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+                PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setString(1, category.getName());
             statement.setString(2, category.getDescription());
@@ -83,7 +83,7 @@ public class CategoryDAO extends BaseDAO {
 
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -94,12 +94,12 @@ public class CategoryDAO extends BaseDAO {
         String query = "UPDATE categories SET deleted_at = CURRENT_TIMESTAMP WHERE category_id = ?";
 
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+                PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setInt(1, categoryId);
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -110,7 +110,7 @@ public class CategoryDAO extends BaseDAO {
         String query = "SELECT COUNT(*) FROM categories WHERE name = ? AND deleted_at IS NULL";
 
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+                PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
@@ -118,7 +118,7 @@ public class CategoryDAO extends BaseDAO {
             if (resultSet.next()) {
                 return resultSet.getInt(1) > 0;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -129,7 +129,7 @@ public class CategoryDAO extends BaseDAO {
         String query = "SELECT COUNT(*) FROM categories WHERE name = ? AND category_id != ? AND deleted_at IS NULL";
 
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+                PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setString(1, name);
             statement.setInt(2, categoryId);
@@ -138,7 +138,7 @@ public class CategoryDAO extends BaseDAO {
             if (resultSet.next()) {
                 return resultSet.getInt(1) > 0;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -149,7 +149,7 @@ public class CategoryDAO extends BaseDAO {
         String query = "SELECT COUNT(*) FROM items WHERE category_id = ? AND deleted_at IS NULL";
 
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+                PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setInt(1, categoryId);
             ResultSet resultSet = statement.executeQuery();
@@ -157,7 +157,7 @@ public class CategoryDAO extends BaseDAO {
             if (resultSet.next()) {
                 return resultSet.getInt(1) > 0;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -169,13 +169,13 @@ public class CategoryDAO extends BaseDAO {
         String query = "SELECT name FROM categories WHERE deleted_at IS NULL ORDER BY name";
 
         try (Connection connection = getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
                 categories.add(resultSet.getString("name"));
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

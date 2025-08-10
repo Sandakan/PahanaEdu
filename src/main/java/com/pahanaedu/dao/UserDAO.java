@@ -20,7 +20,7 @@ public class UserDAO extends BaseDAO {
             while (resultSet.next()) {
                 users.add(mapResultSetToUser(resultSet));
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -49,7 +49,7 @@ public class UserDAO extends BaseDAO {
                     }
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -67,7 +67,7 @@ public class UserDAO extends BaseDAO {
             if (resultSet.next()) {
                 return mapResultSetToUser(resultSet);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -100,7 +100,7 @@ public class UserDAO extends BaseDAO {
             }
 
             return preparedStatement.executeUpdate() > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -114,7 +114,7 @@ public class UserDAO extends BaseDAO {
 
             preparedStatement.setInt(1, userId);
             return preparedStatement.executeUpdate() > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -133,7 +133,7 @@ public class UserDAO extends BaseDAO {
             if (resultSet.next()) {
                 return resultSet.getInt(1) > 0;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -154,7 +154,7 @@ public class UserDAO extends BaseDAO {
             if (resultSet.next()) {
                 return mapResultSetToUser(resultSet);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -167,7 +167,7 @@ public class UserDAO extends BaseDAO {
 
             preparedStatement.setInt(1, userId);
             return preparedStatement.executeUpdate() > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;

@@ -23,7 +23,7 @@ public class ItemDAO extends BaseDAO {
                 Item item = mapResultSetToItem(resultSet);
                 items.add(item);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -44,7 +44,7 @@ public class ItemDAO extends BaseDAO {
             if (resultSet.next()) {
                 return mapResultSetToItem(resultSet);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -67,7 +67,7 @@ public class ItemDAO extends BaseDAO {
                 Item item = mapResultSetToItem(resultSet);
                 items.add(item);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -94,7 +94,7 @@ public class ItemDAO extends BaseDAO {
                 }
                 return true;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -116,7 +116,7 @@ public class ItemDAO extends BaseDAO {
 
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -132,7 +132,7 @@ public class ItemDAO extends BaseDAO {
             statement.setInt(1, itemId);
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -151,7 +151,7 @@ public class ItemDAO extends BaseDAO {
             if (resultSet.next()) {
                 return resultSet.getInt(1) > 0;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -171,7 +171,7 @@ public class ItemDAO extends BaseDAO {
             if (resultSet.next()) {
                 return resultSet.getInt(1) > 0;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -189,7 +189,7 @@ public class ItemDAO extends BaseDAO {
             while (resultSet.next()) {
                 items.add(resultSet.getString("name"));
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

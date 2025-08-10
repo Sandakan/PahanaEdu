@@ -27,7 +27,7 @@ public class BillItemDAO extends BaseDAO {
             while (resultSet.next()) {
                 billItems.add(mapResultSetToBillItem(resultSet));
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -53,7 +53,7 @@ public class BillItemDAO extends BaseDAO {
             while (resultSet.next()) {
                 billItems.add(mapResultSetToBillItem(resultSet));
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -77,7 +77,7 @@ public class BillItemDAO extends BaseDAO {
             if (resultSet.next()) {
                 return mapResultSetToBillItem(resultSet);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -106,7 +106,7 @@ public class BillItemDAO extends BaseDAO {
                 }
                 return true;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -130,7 +130,7 @@ public class BillItemDAO extends BaseDAO {
             statement.setInt(6, billItem.getBillItemId());
 
             return statement.executeUpdate() > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -145,7 +145,7 @@ public class BillItemDAO extends BaseDAO {
 
             statement.setInt(1, billItemId);
             return statement.executeUpdate() > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -160,7 +160,7 @@ public class BillItemDAO extends BaseDAO {
 
             statement.setInt(1, billId);
             return statement.executeUpdate() > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -197,7 +197,7 @@ public class BillItemDAO extends BaseDAO {
             }
 
             return affectedRows.length == billItems.size();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
