@@ -10,6 +10,11 @@ public class AuthService {
         this.userDAO = new UserDAO();
     }
 
+    // Added to inject mock class in tests
+    public AuthService(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+
     // Authenticate user with email and password
     public User authenticate(String email, String password) {
         if (email == null || password == null || email.trim().isEmpty() || password.trim().isEmpty()) {

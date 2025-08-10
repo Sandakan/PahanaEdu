@@ -31,6 +31,22 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Mockito (for testing) -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.1.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Mockito JUnit 5 extension -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>5.1.1</version>
+            <scope>test</scope>
+        </dependency>
+
         <!-- dotenv-java -->
         <dependency>
             <groupId>io.github.cdimascio</groupId>
@@ -48,6 +64,8 @@
                 <version>3.0.0-M9</version>
                 <configuration>
                     <useSystemClassLoader>false</useSystemClassLoader>
+                    <!-- Fix for mocking not working in jdk 24 https://stackoverflow.com/a/79615061 -->
+                    <argLine>-Dnet.bytebuddy.experimental=true</argLine>
                 </configuration>
             </plugin>
             <!-- Maven Compiler Plugin -->
