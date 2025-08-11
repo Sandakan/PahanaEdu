@@ -3,14 +3,16 @@ package com.pahanaedu.service;
 import com.pahanaedu.dao.UserDAO;
 import com.pahanaedu.model.User;
 
-/**
- * Service class for user authentication and authorization
- */
 public class AuthService {
     private final UserDAO userDAO;
 
     public AuthService() {
         this.userDAO = new UserDAO();
+    }
+
+    // Added to inject mock class in tests
+    public AuthService(UserDAO userDAO) {
+        this.userDAO = userDAO;
     }
 
     // Authenticate user with email and password
