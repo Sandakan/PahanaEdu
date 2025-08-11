@@ -37,8 +37,8 @@ Pahana Edu Billing System/
 │       │       ├── enums/              # Enumerations (UserRole, PaymentMethod, PaymentStatus)
 │       │       └── util/               # Utilities (PasswordUtil)
 │       ├── resources/
-│       │   ├── .env.example            # Example environment file (copy to .env and fill in credentials)
-│       │   └── .env                    # (NOT in version control; required for DB connection)
+│       │   ├── db.properties.example   # Example properties file (copy to db.properties and fill in credentials)
+│       │   └── db.properties           # (NOT in version control; required for DB connection)
 │       └── webapp/
 │           ├── index.jsp               # Landing page
 │           ├── login.jsp               # Login form
@@ -125,12 +125,12 @@ Password: cashier123
 
 ### 1. Environment Setup (REQUIRED)
 
-- Copy `src/main/resources/.env.example` to `src/main/resources/.env` and fill in your MySQL credentials:
+- Copy `src/main/resources/db.properties.example` to `src/main/resources/db.properties` and fill in your MySQL credentials:
 
-  ```env
-  DB_URL=jdbc:mysql://localhost:3306/pahana_edu
-  DB_USER=your_username
-  DB_PASSWORD=your_password
+  ```properties
+  db.url=jdbc:mysql://localhost:3306/pahana_edu
+  db.user=your_username
+  db.password=your_password
   ```
 
 ### 2. Database Setup
@@ -168,9 +168,9 @@ Password: cashier123
 
 ## Environment Variable Setup
 
-**IMPORTANT:** The `.env` file must be placed in `src/main/resources/.env` (not the project root). This is required for the application to start and connect to the database.
+**IMPORTANT:** The `db.properties` file must be placed in `src/main/resources/db.properties` (not the project root). This is required for the application to start and connect to the database.
 
-An example file is provided as `src/main/resources/.env.example`. Copy it to `.env` and fill in your credentials. The `.env` file is excluded from version control.
+An example file is provided as `src/main/resources/db.properties.example`. Copy it to `db.properties` and fill in your credentials. The `db.properties` file is excluded from version control.
 
 ## System Architecture
 
@@ -201,7 +201,7 @@ An example file is provided as `src/main/resources/.env.example`. Copy it to `.e
 ## Troubleshooting
 
 - **404 on deployment:** Check the context path. In IDEs, it may deploy as `/PahanaEdu_war_exploded/`.
-- **Database connection failed:** Ensure MySQL is running and `.env` is present in `src/main/resources/`.
+- **Database connection failed:** Ensure MySQL is running and `db.properties` is present in `src/main/resources/`.
 - **Session timeout:** Default is 30 minutes (see `web.xml`).
 - **Maven not found:** Install Maven separately (no wrapper provided).
 - **Java version mismatch:** Use JDK 17+ for Jakarta EE 10 compatibility.
