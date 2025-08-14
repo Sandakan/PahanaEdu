@@ -1,5 +1,6 @@
 package com.pahanaedu.dao;
 
+import com.pahanaedu.dao.interfaces.UserDAOInterface;
 import com.pahanaedu.helpers.DatabaseHelper;
 import com.pahanaedu.model.User;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserDAOTest {
 
-    private UserDAO userDAO;
+    private UserDAOInterface userDAO;
 
     @BeforeAll
     static void setupDatabase() throws SQLException {

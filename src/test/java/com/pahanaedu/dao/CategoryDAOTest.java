@@ -1,5 +1,6 @@
 package com.pahanaedu.dao;
 
+import com.pahanaedu.dao.interfaces.CategoryDAOInterface;
 import com.pahanaedu.helpers.DatabaseHelper;
 import com.pahanaedu.model.Category;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,11 +16,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CategoryDAOTest {
 
-    private CategoryDAO categoryDAO;
+    private CategoryDAOInterface categoryDAO;
 
     @BeforeAll
     static void setupDatabase() throws SQLException {
-        
 
         try (Connection connection = DatabaseHelper.getInstance().getConnection();
                 Statement statement = connection.createStatement()) {
@@ -36,7 +36,6 @@ class CategoryDAOTest {
                             "(1, 'Books', 'Educational books and textbooks', NOW(), NOW()), " +
                             "(2, 'Stationery', 'School and office supplies', NOW(), NOW())");
 
-            
         }
     }
 

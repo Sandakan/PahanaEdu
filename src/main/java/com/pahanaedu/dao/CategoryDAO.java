@@ -1,12 +1,13 @@
 package com.pahanaedu.dao;
 
+import com.pahanaedu.dao.interfaces.CategoryDAOInterface;
 import com.pahanaedu.model.Category;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryDAO extends BaseDAO {
+public class CategoryDAO extends BaseDAO implements CategoryDAOInterface {
 
     public List<Category> getAllCategories() {
         List<Category> categories = new ArrayList<>();

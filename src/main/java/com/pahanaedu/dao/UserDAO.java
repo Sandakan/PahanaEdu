@@ -1,12 +1,13 @@
 package com.pahanaedu.dao;
 
+import com.pahanaedu.dao.interfaces.UserDAOInterface;
 import com.pahanaedu.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO extends BaseDAO {
+public class UserDAO extends BaseDAO implements UserDAOInterface {
 
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();

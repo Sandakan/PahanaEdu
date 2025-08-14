@@ -1,5 +1,6 @@
 package com.pahanaedu.dao;
 
+import com.pahanaedu.dao.interfaces.BillItemDAOInterface;
 import com.pahanaedu.model.BillItem;
 import com.pahanaedu.model.Item;
 import com.pahanaedu.model.Category;
@@ -8,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BillItemDAO extends BaseDAO {
+public class BillItemDAO extends BaseDAO implements BillItemDAOInterface {
 
     public List<BillItem> getAllBillItems() {
         List<BillItem> billItems = new ArrayList<>();

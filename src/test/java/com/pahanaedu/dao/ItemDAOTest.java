@@ -1,5 +1,6 @@
 package com.pahanaedu.dao;
 
+import com.pahanaedu.dao.interfaces.ItemDAOInterface;
 import com.pahanaedu.helpers.DatabaseHelper;
 import com.pahanaedu.model.Item;
 import com.pahanaedu.model.Category;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ItemDAOTest {
 
-    private ItemDAO itemDAO;
+    private ItemDAOInterface itemDAO;
 
     @BeforeAll
     static void setupDatabase() throws SQLException {

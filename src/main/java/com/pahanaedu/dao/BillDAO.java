@@ -1,5 +1,6 @@
 package com.pahanaedu.dao;
 
+import com.pahanaedu.dao.interfaces.BillDAOInterface;
 import com.pahanaedu.enums.PaymentMethod;
 import com.pahanaedu.enums.PaymentStatus;
 import com.pahanaedu.model.Bill;
@@ -11,7 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BillDAO extends BaseDAO {
+public class BillDAO extends BaseDAO implements BillDAOInterface {
 
     public List<Bill> getAllBills() {
         List<Bill> bills = new ArrayList<>();

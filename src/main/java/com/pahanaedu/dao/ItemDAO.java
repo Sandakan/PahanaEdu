@@ -1,5 +1,6 @@
 package com.pahanaedu.dao;
 
+import com.pahanaedu.dao.interfaces.ItemDAOInterface;
 import com.pahanaedu.model.Item;
 import com.pahanaedu.model.Category;
 
@@ -7,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemDAO extends BaseDAO {
+public class ItemDAO extends BaseDAO implements ItemDAOInterface {
 
     public List<Item> getAllItems() {
         List<Item> items = new ArrayList<>();

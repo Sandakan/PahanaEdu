@@ -1,5 +1,7 @@
 package com.pahanaedu.dao;
 
+import com.pahanaedu.dao.interfaces.BillDAOInterface;
+import com.pahanaedu.dao.interfaces.BillItemDAOInterface;
 import com.pahanaedu.helpers.DatabaseHelper;
 import com.pahanaedu.model.BillItem;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BillItemDAOTest {
 
-    private BillItemDAO billItemDAO;
+    private BillItemDAOInterface billItemDAO;
 
     @BeforeAll
     static void setupDatabase() throws SQLException {
@@ -129,7 +131,7 @@ class BillItemDAOTest {
     @Test
     void shouldCreateNewBillItem() {
 
-        BillDAO billDAO = new BillDAO();
+        BillDAOInterface billDAO = new BillDAO();
         com.pahanaedu.model.Bill testBill = new com.pahanaedu.model.Bill();
         testBill.setCustomerId(1);
         testBill.setUserId(1);
@@ -170,7 +172,7 @@ class BillItemDAOTest {
     @Test
     void shouldUpdateExistingBillItem() {
 
-        BillDAO billDAO = new BillDAO();
+        BillDAOInterface billDAO = new BillDAO();
         com.pahanaedu.model.Bill testBill = new com.pahanaedu.model.Bill();
         testBill.setCustomerId(1);
         testBill.setUserId(1);
@@ -218,7 +220,7 @@ class BillItemDAOTest {
     @Test
     void shouldDeleteBillItem() {
 
-        BillDAO billDAO = new BillDAO();
+        BillDAOInterface billDAO = new BillDAO();
         com.pahanaedu.model.Bill testBill = new com.pahanaedu.model.Bill();
         testBill.setCustomerId(1);
         testBill.setUserId(1);
@@ -259,7 +261,7 @@ class BillItemDAOTest {
     @Test
     void shouldDeleteAllBillItemsByBillId() {
 
-        BillDAO billDAO = new BillDAO();
+        BillDAOInterface billDAO = new BillDAO();
         com.pahanaedu.model.Bill testBill = new com.pahanaedu.model.Bill();
         testBill.setCustomerId(1);
         testBill.setUserId(1);

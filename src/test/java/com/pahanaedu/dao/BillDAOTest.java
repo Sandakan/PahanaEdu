@@ -1,5 +1,6 @@
 package com.pahanaedu.dao;
 
+import com.pahanaedu.dao.interfaces.BillDAOInterface;
 import com.pahanaedu.helpers.DatabaseHelper;
 import com.pahanaedu.model.Bill;
 import com.pahanaedu.model.BillItem;
@@ -19,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BillDAOTest {
 
-    private BillDAO billDAO;
+    private BillDAOInterface billDAO;
 
     @BeforeAll
     static void setupDatabase() throws SQLException {

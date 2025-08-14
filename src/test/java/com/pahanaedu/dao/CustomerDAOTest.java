@@ -1,5 +1,6 @@
 package com.pahanaedu.dao;
 
+import com.pahanaedu.dao.interfaces.CustomerDAOInterface;
 import com.pahanaedu.helpers.DatabaseHelper;
 import com.pahanaedu.model.Customer;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,11 +16,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerDAOTest {
 
-    private CustomerDAO customerDAO;
+    private CustomerDAOInterface customerDAO;
 
     @BeforeAll
     static void setupDatabase() throws SQLException {
-        
 
         try (Connection connection = DatabaseHelper.getInstance().getConnection();
                 Statement statement = connection.createStatement()) {
@@ -38,7 +38,6 @@ class CustomerDAOTest {
                             +
                             "(2, 000002, 'Jane Smith', '456 Queen St, Kandy', '0779876543', 'jane.smith@email.com', NOW(), NOW())");
 
-            
         }
     }
 

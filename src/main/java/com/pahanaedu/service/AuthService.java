@@ -1,17 +1,18 @@
 package com.pahanaedu.service;
 
 import com.pahanaedu.dao.UserDAO;
+import com.pahanaedu.dao.interfaces.UserDAOInterface;
 import com.pahanaedu.model.User;
 
 public class AuthService {
-    private final UserDAO userDAO;
+    private final UserDAOInterface userDAO;
 
     public AuthService() {
         this.userDAO = new UserDAO();
     }
 
     // Added to inject mock class in tests
-    public AuthService(UserDAO userDAO) {
+    public AuthService(UserDAOInterface userDAO) {
         this.userDAO = userDAO;
     }
 

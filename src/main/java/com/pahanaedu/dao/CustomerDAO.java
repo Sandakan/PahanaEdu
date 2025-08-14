@@ -1,12 +1,13 @@
 package com.pahanaedu.dao;
 
+import com.pahanaedu.dao.interfaces.CustomerDAOInterface;
 import com.pahanaedu.model.Customer;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerDAO extends BaseDAO {
+public class CustomerDAO extends BaseDAO implements CustomerDAOInterface {
 
     public List<Customer> getAllCustomers() {
         List<Customer> customers = new ArrayList<>();
