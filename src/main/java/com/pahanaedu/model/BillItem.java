@@ -152,4 +152,22 @@ public class BillItem {
     public void updateLineTotal() {
         this.lineTotal = calculateLineTotal();
     }
+
+    public String toJson(int id) {
+        String name = item != null && item.getName() != null ? item.getName().replace("\"", "\\\"").replace("'", "\\'")
+                : "";
+        String category = item != null && item.getCategoryName() != null
+                ? item.getCategoryName().replace("\"", "\\\"").replace("'", "\\'")
+                : "";
+
+        return String.format(
+                "{\"id\":%d,\"itemId\":%d,\"name\":\"%s\",\"category\":\"%s\",\"unitPrice\":%.1f,\"quantity\":%d,\"lineTotal\":%.1f}",
+                id,
+                itemId,
+                name,
+                category,
+                unitPrice != null ? unitPrice.doubleValue() : 0.0,
+                quantity,
+                lineTotal != null ? lineTotal.doubleValue() : 0.0);
+    }
 }

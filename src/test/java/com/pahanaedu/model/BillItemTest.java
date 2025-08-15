@@ -204,4 +204,62 @@ class BillItemTest {
         billItem.setUnitPrice(new BigDecimal("7.50"));
         assertEquals(new BigDecimal("30.00"), billItem.getLineTotal());
     }
+
+    @Test
+    void shouldGenerateCorrectJsonRepresentation() {
+        // Create category and item
+        Category category = new Category("Electronics", "Electronic devices");
+        Item item = new Item("Laptop", "Gaming laptop", category, new BigDecimal("1500.50"));
+        item.setItemId(123);
+
+        // Create bill item
+        BillItem billItem = new BillItem(1, item, 2);
+        billItem.setBillItemId(456);
+
+        // Generate JSON
+        String json = billItem.toJson(1);
+
+        // Verify JSON structure
+        assertTrue(json.contains("\"id\":1"));
+        assertTrue(json.contains("\"itemId\":123"));
+        assertTrue(json.contains("\"name\":\"Laptop\""));
+        assertTrue(json.contains("\"category\":\"Electronics\""));
+        assertTrue(json.contains("\"unitPrice\":1500.5"));
+        assertTrue(json.contains("\"quantity\":2"));
+        assertTrue(json.contains("\"lineTotal\":3001.0"));
+    }
+
+    @Test
+    void shouldEscapeSpecialCharactersInJson() {
+        Category category = new Category("Books & Media", "Books and media");
+        Item item = new Item("Java \"Programming\" Guide", "Advanced programming", category, new BigDecimal("45.99"));
+        item.setItemId(789);
+
+        BillItem billItem = new BillItem(1, item, 1);
+
+        String json = billItem.toJson(2);
+
+        assertTrue(json.contains("\"name\":\"Java \\\"Programming\\\" Guide\""));
+        assertTrue(json.contains("\"category\":\"Books & Media\""));
+        assertTrue(json.contains("\"id\":2"));
+    }
+
+    @Test
+    void shouldHandleNullItemInJson() {
+        BillItem billItem = new BillItem();
+        billItem.setItemId(999);
+        billItem.setQuantity(3);
+        billItem.setUnitPrice(new BigDecimal("10.00"));
+        billItem.setLineTotal(new BigDecimal("30.00"));
+
+        String json = billItem.toJson(5);
+
+        assertTrue(json.contains("\"id\":5"));
+        assertTrue(json.contains("\"itemId\":999"));
+        assertTrue(json.contains("\"name\":\"\""));
+        assertTrue(json.contains("\"category\":\"\""));
+        assertTrue(json.contains("\"unitPrice\":10.0"));
+        assertTrue(json.contains("\"quantity\":3"));
+        assertTrue(json.contains("\"lineTotal\":30.0"));
+    }
 }

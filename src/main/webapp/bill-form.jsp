@@ -184,23 +184,9 @@
             <% for (int i = 0; i < billItems.size(); i++) {
                 BillItem billItem = billItems.get(i);
                 if (billItem.getItem() != null) {
-                int id = i + 1;
-                int itemId = billItem.getItemId();
-                int quantity = billItem.getQuantity();
-                double unitPrice = billItem.getUnitPrice().doubleValue();
-                double lineTotal = billItem.getLineTotal().doubleValue();
-                String name = billItem.getItem().getName().replace("'", "\\'");
-                String category = billItem.getItem().getCategoryName();
+                    int id = i + 1;
                 %>
-            {
-                id: <%= id %>,
-                itemId: <%= itemId %>,
-                name: '<%= name %>',
-                category: '<%= category %>',
-                unitPrice: <%= unitPrice %>,
-                quantity: <%= quantity %>,
-                lineTotal: <%= lineTotal %>
-            },
+            <%= billItem.toJson(id) %>,
             <% }
             } %>
         ];
