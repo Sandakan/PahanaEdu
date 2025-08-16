@@ -209,13 +209,14 @@ public class BillServlet extends HttpServlet {
                 totalAmount = totalAmount.add(item.getLineTotal());
             }
 
-            Bill bill = new Bill();
-            bill.setCustomerId(customerId);
-            bill.setUserId(currentUser.getUserId());
-            bill.setTotalAmount(totalAmount);
-            bill.setPaymentMethod(PaymentMethod.valueOf(paymentMethod));
-            bill.setPaymentStatus(PaymentStatus.valueOf(paymentStatus));
-            bill.setNotes(isNullOrEmpty(notes) ? null : notes);
+            Bill bill = Bill.builder()
+                    .customerId(customerId)
+                    .userId(currentUser.getUserId())
+                    .paymentMethod(PaymentMethod.valueOf(paymentMethod))
+                    .paymentStatus(PaymentStatus.valueOf(paymentStatus))
+                    .notes(isNullOrEmpty(notes) ? null : notes)
+                    .billItems(billItems)
+                    .build();
 
             if (billDAO.createBill(bill)) {
                 for (BillItem item : billItems) {

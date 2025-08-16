@@ -129,13 +129,14 @@ class BillDAOTest {
 
     @Test
     void shouldCreateNewBill() {
-        Bill newBill = new Bill();
-        newBill.setCustomerId(1);
-        newBill.setUserId(1);
-        newBill.setTotalAmount(new BigDecimal("500.00"));
-        newBill.setPaymentStatus(PaymentStatus.PENDING);
-        newBill.setPaymentMethod(PaymentMethod.CREDIT_CARD);
-        newBill.setNotes("Test bill creation");
+        Bill newBill = Bill.builder()
+                .customerId(1)
+                .userId(1)
+                .totalAmount(new BigDecimal("500.00"))
+                .paymentStatus(PaymentStatus.PENDING)
+                .paymentMethod(PaymentMethod.CREDIT_CARD)
+                .notes("Test bill creation")
+                .build();
 
         boolean created = billDAO.createBill(newBill);
         assertTrue(created, "Should successfully create new bill");
@@ -149,13 +150,14 @@ class BillDAOTest {
     @Test
     void shouldUpdateExistingBill() {
 
-        Bill testBill = new Bill();
-        testBill.setCustomerId(1);
-        testBill.setUserId(1);
-        testBill.setTotalAmount(new BigDecimal("300.00"));
-        testBill.setPaymentStatus(PaymentStatus.PENDING);
-        testBill.setPaymentMethod(PaymentMethod.CASH);
-        testBill.setNotes("Update test bill " + System.currentTimeMillis());
+        Bill testBill = Bill.builder()
+                .customerId(1)
+                .userId(1)
+                .totalAmount(new BigDecimal("300.00"))
+                .paymentStatus(PaymentStatus.PENDING)
+                .paymentMethod(PaymentMethod.CASH)
+                .notes("Update test bill " + System.currentTimeMillis())
+                .build();
 
         assertTrue(billDAO.createBill(testBill), "Should create test bill");
 
@@ -186,13 +188,14 @@ class BillDAOTest {
     @Test
     void shouldDeleteBill() {
 
-        Bill billToDelete = new Bill();
-        billToDelete.setCustomerId(1);
-        billToDelete.setUserId(1);
-        billToDelete.setTotalAmount(new BigDecimal("100.00"));
-        billToDelete.setPaymentStatus(PaymentStatus.PENDING);
-        billToDelete.setPaymentMethod(PaymentMethod.CASH);
-        billToDelete.setNotes("Temp delete bill " + System.currentTimeMillis());
+        Bill billToDelete = Bill.builder()
+                .customerId(1)
+                .userId(1)
+                .totalAmount(new BigDecimal("100.00"))
+                .paymentStatus(PaymentStatus.PENDING)
+                .paymentMethod(PaymentMethod.CASH)
+                .notes("Temp delete bill " + System.currentTimeMillis())
+                .build();
 
         boolean created = billDAO.createBill(billToDelete);
         assertTrue(created, "Should create temporary bill");
@@ -230,13 +233,14 @@ class BillDAOTest {
     @Test
     void shouldUpdatePaymentStatus() {
 
-        Bill testBill = new Bill();
-        testBill.setCustomerId(1);
-        testBill.setUserId(1);
-        testBill.setTotalAmount(new BigDecimal("200.00"));
-        testBill.setPaymentStatus(PaymentStatus.PENDING);
-        testBill.setPaymentMethod(PaymentMethod.CASH);
-        testBill.setNotes("Payment status test bill " + System.currentTimeMillis());
+        Bill testBill = Bill.builder()
+                .customerId(1)
+                .userId(1)
+                .totalAmount(new BigDecimal("200.00"))
+                .paymentStatus(PaymentStatus.PENDING)
+                .paymentMethod(PaymentMethod.CASH)
+                .notes("Payment status test bill " + System.currentTimeMillis())
+                .build();
 
         assertTrue(billDAO.createBill(testBill), "Should create test bill");
 
@@ -288,20 +292,21 @@ class BillDAOTest {
     @Test
     void shouldValidateBillCreationRequirements() {
 
-        Bill invalidBill = new Bill();
-
-        invalidBill.setUserId(1);
-        invalidBill.setTotalAmount(new BigDecimal("100.00"));
-        invalidBill.setPaymentStatus(PaymentStatus.PENDING);
-        invalidBill.setPaymentMethod(PaymentMethod.CASH);
+        Bill invalidBill = Bill.builder()
+                .userId(1)
+                .totalAmount(new BigDecimal("100.00"))
+                .paymentStatus(PaymentStatus.PENDING)
+                .paymentMethod(PaymentMethod.CASH)
+                .build();
 
         assertFalse(billDAO.createBill(invalidBill), "Bill without customer should fail to create");
 
-        Bill billWithoutUser = new Bill();
-        billWithoutUser.setCustomerId(1);
-        billWithoutUser.setTotalAmount(new BigDecimal("100.00"));
-        billWithoutUser.setPaymentStatus(PaymentStatus.PENDING);
-        billWithoutUser.setPaymentMethod(PaymentMethod.CASH);
+        Bill billWithoutUser = Bill.builder()
+                .customerId(1)
+                .totalAmount(new BigDecimal("100.00"))
+                .paymentStatus(PaymentStatus.PENDING)
+                .paymentMethod(PaymentMethod.CASH)
+                .build();
 
         assertFalse(billDAO.createBill(billWithoutUser), "Bill without user should fail to create");
     }

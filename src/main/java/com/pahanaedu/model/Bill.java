@@ -5,6 +5,7 @@ import com.pahanaedu.enums.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Bill {
@@ -182,5 +183,79 @@ public class Bill {
             totalQuantity += item.getQuantity();
         }
         return totalQuantity;
+    }
+
+    public static class Builder {
+        private int customerId;
+        private int userId;
+        private BigDecimal totalAmount = BigDecimal.ZERO;
+        private PaymentStatus paymentStatus = PaymentStatus.PENDING;
+        private PaymentMethod paymentMethod = PaymentMethod.CASH;
+        private String notes;
+        private List<BillItem> billItems = new ArrayList<>();
+
+        public Builder customerId(int customerId) {
+            this.customerId = customerId;
+            return this;
+        }
+
+        public Builder userId(int userId) {
+            this.userId = userId;
+            return this;
+        }
+
+        public Builder totalAmount(BigDecimal totalAmount) {
+            this.totalAmount = totalAmount;
+            return this;
+        }
+
+        public Builder paymentMethod(PaymentMethod paymentMethod) {
+            this.paymentMethod = paymentMethod;
+            return this;
+        }
+
+        public Builder paymentStatus(PaymentStatus paymentStatus) {
+            this.paymentStatus = paymentStatus;
+            return this;
+        }
+
+        public Builder notes(String notes) {
+            this.notes = notes;
+            return this;
+        }
+
+        public Builder addBillItem(BillItem billItem) {
+            this.billItems.add(billItem);
+            return this;
+        }
+
+        public Builder billItems(List<BillItem> billItems) {
+            this.billItems = new ArrayList<>(billItems);
+            return this;
+        }
+
+        public Bill build() {
+            if (totalAmount.equals(BigDecimal.ZERO) && !billItems.isEmpty()) {
+                totalAmount = BigDecimal.ZERO;
+                for (BillItem item : billItems) {
+                    totalAmount = totalAmount.add(item.getLineTotal());
+                }
+            }
+
+            Bill bill = new Bill();
+            bill.setCustomerId(this.customerId);
+            bill.setUserId(this.userId);
+            bill.setTotalAmount(this.totalAmount);
+            bill.setPaymentMethod(this.paymentMethod);
+            bill.setPaymentStatus(this.paymentStatus);
+            bill.setNotes(this.notes);
+            bill.setBillItems(this.billItems);
+
+            return bill;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }
