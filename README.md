@@ -3,19 +3,25 @@
 
 > This project is part of the assignment for the Advanced Programming module in the BSc (Hons) Software Engineering program.
 
+![System Dashboard](other/dashboard.jpeg)
+
 ## Overview
 
-Pahana Edu Billing System is a comprehensive Java-based web application designed for educational institutions in Sri Lanka. It features complete billing management, user management with role-based access control, customer management, inventory management, and comprehensive reporting. Built with Jakarta EE Servlets (6.0), JSP, and MySQL, it demonstrates enterprise-level architecture with session-based authentication and multi-role authorization.
+Pahana Edu Billing System is a comprehensive Java-based web application designed for educational institutions in Sri Lanka. It features complete billing management, user management with role-based access control, customer management, inventory management, and comprehensive reporting. Built with Jakarta EE Servlets (6.0), JSP, and MySQL, it demonstrates enterprise-level layered architecture with session-based authentication, multi-role authorization, and modern design patterns including the Builder pattern for clean object construction.
 
 ## Key Features
 
-- **Complete Billing System**: Dynamic bill creation with real-time calculations, multiple payment methods, and print-ready receipts
-- **User Management**: Admin-controlled user accounts with role-based permissions (Admin/Cashier)
-- **Customer Management**: Comprehensive customer profiles with auto-generated account numbers
-- **Inventory Management**: Category-based item organization with pricing management
-- **Role-Based Security**: Differentiated access levels ensuring proper workflow and data security
+- **Complete Billing System**: Dynamic bill creation with real-time calculations, multiple payment methods (Cash, Credit Card, Debit Card, Bank Transfer), and print-ready receipts
+- **Advanced User Management**: Admin-controlled user accounts with role-based permissions (Admin/Cashier), email validation, and comprehensive security
+- **Customer Management**: Comprehensive customer profiles with auto-generated 6-digit account numbers (ZEROFILL format) and relationship tracking
+- **Inventory Management**: Category-based item organization with pricing management, hierarchical categorization, and role-based access control
+- **Role-Based Security**: Differentiated access levels (Admin: full system access, Cashier: operational restrictions) with server-side and UI enforcement
+- **Modern Design Patterns**: Builder pattern implementation for clean object construction, enhanced readability, and maintainable test data creation
+- **Comprehensive Testing**: 100+ JUnit 5 test cases covering models, DAOs, enums, utilities, and Builder pattern functionality with database integration testing
+- **UML Documentation**: Complete sequence diagrams for Admin and Cashier workflows with business-level abstraction
+- **Help System**: Context-sensitive documentation with role-based content and troubleshooting guides
 - **Audit Compliance**: Soft deletes and referential integrity for financial record keeping
-- **Sri Lankan Localization**: All pricing in LKR with local formatting standards
+- **Sri Lankan Localization**: All pricing in LKR with local formatting standards and cultural considerations
 
 ## Project Structure
 
@@ -55,6 +61,7 @@ Pahana Edu Billing System/
 │           ├── bill-form.jsp           # Bill create/edit with dynamic items
 │           ├── bill-view.jsp           # Bill viewing and printing
 │           ├── help.jsp                # Comprehensive user guide with role-based content
+│           ├── account-details.jsp     # User account management
 │           ├── css/                    # Modernized CSS with minimal override pattern
 │           │   ├── common.css          # Shared styles (75% of all CSS)
 │           │   ├── login.css           # Login page styles
@@ -64,26 +71,33 @@ Pahana Edu Billing System/
 │           │   ├── common.js           # Shared utilities (app object)
 │           │   └── [module].js         # Module-specific logic using app utilities
 │           └── WEB-INF/
-│               └── web.xml
+│               └── web.xml             # Deployment descriptor
+├── test/
+│   └── java/com/pahanaedu/             # Comprehensive test suite (100+ tests)
+│       ├── model/                      # Model testing (6 test classes)
+│       ├── dao/                        # DAO testing (6 test classes)
+│       ├── enums/                      # Enum testing (1 test class)
+│       └── util/                       # Utility testing (1 test class)
 ├── database/
-│   ├── schema.sql
-│   └── seeds.sql
+│   ├── schema.sql                      # Database schema with foreign keys
+│   └── seeds.sql                       # Sample data for testing
 └── target/
-    ├── PahanaEdu.war
-    └── ...
+    ├── PahanaEdu.war                   # Deployable WAR file
+    └── test-results/                   # Test execution reports
 ```
 
 ## Key Files
 
-- **Controllers**: `UserServlet.java`, `BillServlet.java`, `CustomerServlet.java`, `ItemServlet.java`, `CategoryServlet.java` - Complete CRUD operations
-- **Authentication**: `LoginServlet.java`, `LogoutServlet.java`, `AuthenticationFilter.java` - Session-based security
-- **Data Access**: `UserDAO.java`, `BillDAO.java`, `CustomerDAO.java`, etc. - Standardized DAO pattern with BaseDAO
-- **Business Logic**: `AuthService.java` - Authentication and authorization logic
-- **Models**: `User.java`, `Bill.java`, `Customer.java`, `Item.java`, `Category.java` - Complete data models
-- **Enums**: `UserRole.java`, `PaymentMethod.java`, `PaymentStatus.java` - Type-safe enumerations
-- **Database**: `DatabaseHelper.java` - Singleton DB connection manager with .env configuration
-- **Security**: `PasswordUtil.java` - Password handling (currently plain text for debugging)
-- **Frontend**: Role-based JSP pages with unified CSS/JS architecture and permission controls
+- **Controllers**: `UserServlet.java`, `BillServlet.java`, `CustomerServlet.java`, `ItemServlet.java`, `CategoryServlet.java` - Complete CRUD operations with role-based permissions
+- **Authentication**: `LoginServlet.java`, `LogoutServlet.java`, `AuthenticationFilter.java` - Session-based security with comprehensive access control
+- **Data Access**: `UserDAO.java`, `BillDAO.java`, `CustomerDAO.java`, etc. - Standardized DAO pattern with BaseDAO and comprehensive testing
+- **Business Logic**: `AuthService.java` - Authentication and authorization logic with role-based validation
+- **Models**: `User.java`, `Bill.java`, `Customer.java`, `Item.java`, `Category.java` - Complete data models with business logic and calculations
+- **Enums**: `UserRole.java`, `PaymentMethod.java`, `PaymentStatus.java` - Type-safe enumerations with CSS integration and validation
+- **Database**: `DatabaseHelper.java` - Singleton DB connection manager with properties-based configuration
+- **Security**: `PasswordUtil.java` - Password handling utilities (plain text currently, BCrypt ready)
+- **Frontend**: Role-based JSP pages with unified CSS/JS architecture, minimal override pattern, and permission controls
+- **Testing**: Comprehensive JUnit 5 test suite with 100+ test cases covering models, DAOs, enums, and utilities
 
 ## User Roles & Permissions
 
@@ -116,10 +130,11 @@ Password: cashier123
 
 ## Prerequisites
 
-- Java Development Kit (JDK) 17 or higher (tested with OpenJDK 24)
-- Apache Maven
-- MySQL Server 8.0+
-- Apache Tomcat 11.0.9 (Jakarta EE 10 compatible)
+- **Java Development Kit (JDK)**: 17 or higher (tested with OpenJDK 24)
+- **Apache Maven**: 3.6+ for dependency management and build automation
+- **MySQL Server**: 8.0+ with InnoDB engine for optimal performance
+- **Apache Tomcat**: 11.0.9+ (Jakarta EE 10 compatible) for servlet container
+- **Development Environment**: VS Code with Java extensions, IntelliJ IDEA, or Eclipse IDE
 
 ## Build and Deployment
 
@@ -174,6 +189,24 @@ An example file is provided as `src/main/resources/db.properties.example`. Copy 
 
 ## System Architecture
 
+The system follows a **Layered Architecture** pattern, organizing components into distinct layers with specific responsibilities:
+
+### Architecture Layers
+
+1. **Presentation Layer**: JSP pages, CSS, and JavaScript for user interface and interaction
+2. **Business Layer**: Jakarta Servlets (controllers) and Service classes for application logic and business rules
+3. **Persistence Layer**: DAO classes implementing data access patterns for database operations
+4. **Database Layer**: MySQL database server for data storage and integrity enforcement
+
+### Design Patterns Implementation
+
+- **Model-View-Controller (MVC)**: Clean separation between data models, user interface, and control logic
+- **Data Access Object (DAO)**: Abstract database interactions with standardized CRUD operations
+- **Builder Pattern**: Implemented in Bill class for clean object construction and enhanced test data creation
+- **Singleton Pattern**: Database connection management through DatabaseHelper
+- **Service Layer Pattern**: Business logic encapsulation in AuthService and other service classes
+- **Filter Pattern**: Centralized authentication and authorization through AuthenticationFilter
+
 ### Security Model
 
 - **Session-Based Authentication**: Secure login/logout with session management
@@ -198,16 +231,65 @@ An example file is provided as `src/main/resources/db.properties.example`. Copy 
 - **Form Validation**: Multi-layer validation (client-side and server-side)
 - **Print Support**: Dedicated print views for bills and reports
 
+## Testing & Quality Assurance
+
+### Comprehensive Test Suite
+
+The project includes a comprehensive JUnit 5 testing framework with 100+ test cases ensuring code quality and reliability:
+
+### Running Tests
+
+```bash
+# Run all tests
+mvn test
+
+# Run tests with detailed output
+mvn test -Dtest="*Test"
+
+# Run specific test class
+mvn test -Dtest="UserTest"
+
+# Generate test reports
+mvn surefire-report:report
+```
+
+### Test Coverage
+
+- **Unit Tests**: All model classes and enums with comprehensive property testing
+- **Integration Tests**: DAO classes with real database operations
+- **Business Logic Tests**: Complex calculations and relationship validations
+- **Edge Case Testing**: Null values, empty strings, and boundary conditions
+
 ## Troubleshooting
+
+### Deployment Issues
 
 - **404 on deployment:** Check the context path. In IDEs, it may deploy as `/PahanaEdu_war_exploded/`.
 - **Database connection failed:** Ensure MySQL is running and `db.properties` is present in `src/main/resources/`.
 - **Session timeout:** Default is 30 minutes (see `web.xml`).
 - **Maven not found:** Install Maven separately (no wrapper provided).
 - **Java version mismatch:** Use JDK 17+ for Jakarta EE 10 compatibility.
+
+### Application Issues
+
 - **Permission denied errors:** Check user role - some features require admin access.
 - **Cannot delete categories/items:** Remove dependencies first or contact administrator.
 - **Login issues:** Verify credentials against database seed data or create new admin user.
+- **Bill calculation errors:** Check item prices and quantities for valid BigDecimal values.
+
+### Testing Issues
+
+- **Test failures:** Ensure MySQL test database is running and accessible.
+- **Connection timeouts:** Check database configuration in test environment.
+- **Test data conflicts:** Tests create and clean up their own data - no manual cleanup needed.
+- **Maven test execution:** Use `mvn clean test` to ensure fresh test environment.
+
+### Development Environment
+
+- **IDE not recognizing changes:** Run `mvn clean compile` to refresh build.
+- **CSS/JS not updating:** Clear browser cache and restart application server.
+- **Database schema mismatch:** Re-run schema.sql and seeds.sql scripts.
+- **Port conflicts:** Check if ports 8080 (Tomcat) and 3306 (MySQL) are available.
 
 ## License
 
