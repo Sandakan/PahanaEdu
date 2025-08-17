@@ -1,0 +1,93 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.pahanaedu.model.User" %>
+<%@ page import="com.pahanaedu.enums.UserRole" %>
+<%
+    User user = (User) session.getAttribute("user");
+    if (user == null) {
+        response.sendRedirect(request.getContextPath() + "/login");
+        return;
+    }
+
+    String ctx = request.getContextPath();
+%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Pahana Edu Billing System</title>
+    <link rel="stylesheet" href="<%= ctx %>/css/common.css">
+    <link rel="stylesheet" href="<%= ctx %>/css/dashboard.css">
+</head>
+<body>
+<div class="header">
+    <h1>Pahana Edu Billing System</h1>
+    <div class="user-info">
+        <span class="user-name">Welcome, <%= user.getFullName() %></span>
+        <span class="role-badge <%= user.getRoleCssClass() %>"><%= user.getRoleEnum() %></span>
+        <a href="<%= request.getContextPath() %>/logout" class="logout-btn">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="welcome-card">
+        <h2>Welcome to Pahana Edu Billing System</h2>
+        <p>You are logged in as <strong><%= user.getRoleEnum() %>
+        </strong>. Select an option below to get started.</p>
+    </div>
+
+    <div class="menu-grid">
+        <div class="menu-card">
+            <h3>Bill Management</h3>
+            <p>Create new bills, view existing bills, calculate totals, and print bill receipts.</p>
+            <a href="<%= ctx %>/bills" class="menu-btn">Manage Bills</a>
+        </div>
+        
+        <div class="menu-card">
+            <h3>Customer Management</h3>
+            <p>Manage customer accounts, add new customers, and edit customer information.</p>
+            <a href="<%= ctx %>/customers" class="menu-btn">Manage Customers</a>
+        </div>
+        
+        <div class="menu-card">
+            <h3>Item Management</h3>
+            <% if (user.isAdmin()) { %>
+            <p>Manage inventory items, add new products, and update pricing information.</p>
+            <% } else { %>
+            <p>View inventory items and pricing information (read-only).</p>
+            <% } %>
+            <a href="<%= ctx %>/items" class="menu-btn">
+                <%= user.isAdmin() ? "Manage Items" : "View Items" %>
+            </a>
+        </div>
+        
+        <div class="menu-card">
+            <h3>Category Management</h3>
+            <% if (user.isAdmin()) { %>
+            <p>Manage item categories, organize products, and maintain category structure.</p>
+            <% } else { %>
+            <p>View item categories and product organization (read-only).</p>
+            <% } %>
+            <a href="<%= ctx %>/categories" class="menu-btn">
+                <%= user.isAdmin() ? "Manage Categories" : "View Categories" %>
+            </a>
+        </div>
+        
+        <% if (user.isAdmin()) { %>
+        <div class="menu-card">
+            <h3>User Management</h3>
+            <p>Manage system users, add new users, edit user roles, and maintain user accounts.</p>
+            <a href="<%= ctx %>/users" class="menu-btn">Manage Users</a>
+        </div>
+        <% } %>
+        
+        <div class="menu-card">
+            <h3>Help & Support</h3>
+            <p>Access system usage guidelines, troubleshooting tips, and user documentation.</p>
+            <a href="<%= ctx %>/help" class="menu-btn">View Help</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

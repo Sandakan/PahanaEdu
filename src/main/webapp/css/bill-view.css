@@ -1,0 +1,267 @@
+.bill-view {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.bill-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 2rem;
+	padding-bottom: 1.5rem;
+	border-bottom: 2px solid #e2e8f0;
+}
+
+.bill-info h2 {
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: #09090b;
+}
+
+.bill-dates {
+	text-align: right;
+	color: #64748b;
+	font-size: 0.875rem;
+}
+
+.customer-section,
+.items-section,
+.payment-section {
+	margin-bottom: 2rem;
+}
+
+.customer-section h3,
+.items-section h3,
+.payment-section h3 {
+	font-size: 1rem;
+	font-weight: 600;
+	color: #374151;
+	margin-bottom: 1rem;
+	text-transform: uppercase;
+	letter-spacing: 0.025em;
+}
+
+.bill-summary {
+	margin-bottom: 2rem;
+	border: 1px solid #e2e8f0;
+	border-radius: 1rem;
+	overflow: hidden;
+	background-color: #ffffff;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.summary-row {
+	display: flex;
+	justify-content: space-between;
+	padding: 0.75rem 1rem;
+	border-bottom: 1px solid #e2e8f0;
+	font-size: 0.875rem;
+}
+
+.summary-row:last-child {
+	border-bottom: none;
+	background-color: #f8fafc;
+	font-weight: 600;
+	font-size: 1rem;
+	color: #09090b;
+}
+
+.summary-row .label {
+	color: #64748b;
+}
+
+.summary-row .amount {
+	color: #09090b;
+	font-weight: 500;
+}
+
+.items-table .item-col {
+	text-align: left;
+	width: 50%;
+}
+
+.items-table .qty-col {
+	text-align: center;
+	width: 15%;
+}
+
+.items-table .price-col {
+	text-align: right;
+	width: 17.5%;
+}
+
+.items-table .total-col {
+	text-align: right;
+	width: 17.5%;
+	font-weight: 500;
+}
+
+.item-details {
+	line-height: 1.4;
+}
+
+.item-details strong {
+	color: #09090b;
+	font-weight: 600;
+}
+
+.item-details small {
+	color: #64748b;
+	font-size: 0.75rem;
+}
+
+.item-details .category {
+	color: #3b82f6;
+	font-weight: 500;
+}
+
+.bill-footer {
+	margin-top: 3rem;
+	padding-top: 2rem;
+	border-top: 1px solid #e2e8f0;
+	text-align: center;
+	color: #64748b;
+	font-size: 0.75rem;
+}
+
+.bill-footer p {
+	margin: 0.25rem 0;
+}
+
+.bill-container {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 3rem;
+}
+
+.company-header {
+	text-align: center;
+	margin-bottom: 2rem;
+	padding-bottom: 1.5rem;
+	border-bottom: 2px solid #3b82f6;
+}
+
+.company-header h1 {
+	color: #3b82f6;
+	margin-bottom: 0.25rem;
+	font-size: 1.875rem;
+	font-weight: 600;
+}
+
+.customer-section,
+.items-section,
+.payment-section {
+	margin-bottom: 2rem;
+}
+
+.customer-section h3,
+.items-section h3,
+.payment-section h3 {
+	font-size: 1rem;
+	font-weight: 600;
+	color: #374151;
+	margin-bottom: 1rem;
+	text-transform: uppercase;
+	letter-spacing: 0.025em;
+}
+
+.customer-details {
+	background-color: rgba(241, 245, 249, 0.3);
+	padding: 1.5rem;
+	border-radius: 1rem;
+	border: 1px solid #e2e8f0;
+}
+
+.payment-section {
+	background-color: rgba(241, 245, 249, 0.3);
+	padding: 1.5rem;
+	border-radius: 1rem;
+	border: 1px solid #e2e8f0;
+}
+
+@media print {
+	.container-full {
+		max-width: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.breadcrumb,
+	.navigation-actions,
+	.btn,
+	.no-print {
+		display: none !important;
+	}
+
+	.bill-view,
+	.bill-container {
+		max-width: none;
+		box-shadow: none;
+		background: white;
+		color: black;
+		margin: 0;
+		padding: 0;
+		border: none;
+	}
+
+	.company-name,
+	.company-header h1 {
+		color: black;
+	}
+
+	body {
+		background: white;
+		color: black;
+		font-size: 12pt;
+		line-height: 1.4;
+	}
+
+	.items-table th {
+		background-color: #f5f5f5;
+	}
+
+	.status-badge {
+		border: 1px solid #ccc;
+	}
+
+	.bill-summary {
+		width: 250px;
+	}
+
+	.summary-row:last-child {
+		background-color: #f5f5f5;
+	}
+
+	.company-header {
+		border-bottom: 2px solid #000;
+	}
+
+	.page-break {
+		page-break-before: always;
+	}
+}
+
+@media (max-width: 768px) {
+	.bill-header {
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.bill-dates {
+		text-align: left;
+	}
+
+	.bill-summary {
+		width: 100%;
+		margin: 1rem 0;
+	}
+
+	.items-table {
+		font-size: 0.75rem;
+	}
+
+	.items-table th,
+	.items-table td {
+		padding: 0.5rem 0.25rem;
+	}
+}

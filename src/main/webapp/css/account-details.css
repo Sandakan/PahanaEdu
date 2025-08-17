@@ -1,0 +1,268 @@
+.account-details-container {
+	background-color: #ffffff;
+	color: #09090b;
+	border-radius: 1rem;
+	border: 1px solid #e2e8f0;
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+	padding: 2rem;
+	margin-bottom: 1rem;
+}
+
+.account-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 2rem;
+	padding-bottom: 1.5rem;
+	border-bottom: 1px solid #e2e8f0;
+}
+
+.account-header h3 {
+	color: #09090b;
+	margin: 0;
+	font-size: 1.5rem;
+	font-weight: 600;
+}
+
+.account-number-badge {
+	padding: 0.5rem 1rem;
+	border-radius: 1rem;
+	font-weight: 600;
+	font-size: 1.125rem;
+	letter-spacing: 0.025em;
+	background-color: #3b82f6;
+	color: #f8fafc;
+}
+
+.details-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+	margin-bottom: 2rem;
+}
+
+.detail-item {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.detail-item label {
+	font-weight: 500;
+	color: #64748b;
+	font-size: 0.875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.025em;
+}
+
+.detail-value {
+	font-size: 1rem;
+	color: #09090b;
+	padding: 0.5rem;
+	background-color: rgba(241, 245, 249, 0.3);
+	border-radius: 1rem;
+	border: 1px solid #e2e8f0;
+}
+
+.account-actions {
+	display: flex;
+	gap: 0.5rem;
+	justify-content: flex-start;
+	padding-top: 1.5rem;
+	border-top: 1px solid #e2e8f0;
+	flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+	.details-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.account-header {
+		flex-direction: column;
+		gap: 1rem;
+		text-align: center;
+	}
+
+	.account-actions {
+		flex-direction: column;
+	}
+}
+
+.purchase-history-container {
+	background-color: #ffffff;
+	color: #09090b;
+	border-radius: 1rem;
+	border: 1px solid #e2e8f0;
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+	padding: 2rem;
+	margin-bottom: 1rem;
+}
+
+.section-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid #e2e8f0;
+}
+
+.section-header h3 {
+	color: #09090b;
+	margin: 0;
+	font-size: 1.5rem;
+	font-weight: 600;
+}
+
+.total-orders-badge {
+	background-color: #22c55e;
+	color: #f0fdf4;
+	padding: 0.25rem 0.5rem;
+	border-radius: 1rem;
+	font-size: 0.875rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.025em;
+}
+
+.bills-table-container {
+	margin-bottom: 1.5rem;
+	border-radius: 1rem;
+	overflow: hidden;
+	border: 1px solid #e2e8f0;
+}
+
+.bills-table {
+	margin-bottom: 0;
+	border-collapse: collapse;
+	background-color: #ffffff;
+}
+
+.bills-table th {
+	background-color: #f8fafc;
+	color: #64748b;
+	font-weight: 500;
+	text-transform: uppercase;
+	font-size: 0.75rem;
+	letter-spacing: 0.025em;
+	padding: 1rem;
+}
+
+.bills-table td {
+	padding: 1rem;
+	vertical-align: middle;
+	border-bottom: 1px solid #e2e8f0;
+	font-size: 0.875rem;
+}
+
+.bills-table tbody tr:hover {
+	background-color: rgba(241, 245, 249, 0.5);
+}
+
+.bill-id {
+	font-weight: 500;
+	color: #3b82f6;
+}
+
+.bill-date {
+	color: #64748b;
+	font-size: 0.875rem;
+}
+
+.bill-amount {
+	font-weight: 600;
+	color: #22c55e;
+	font-size: 1rem;
+	font-variant-numeric: tabular-nums;
+}
+
+.payment-bank-transfer {
+	background-color: #f1f5f9;
+	color: #334155;
+	border-color: #e2e8f0;
+}
+
+.bill-actions {
+	text-align: center;
+}
+
+.btn-sm {
+	height: 2rem;
+	padding: 0.25rem 0.5rem;
+	font-size: 0.75rem;
+}
+
+.purchase-summary {
+	border-radius: 1rem;
+	padding: 2rem;
+	border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.summary-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 1rem;
+}
+
+.stat-item {
+	text-align: center;
+	padding: 1rem;
+	background: rgba(248, 250, 252, 0.1);
+	border-radius: 1rem;
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(248, 250, 252, 0.2);
+}
+
+.stat-item label {
+	display: block;
+	font-size: 0.875rem;
+	margin-bottom: 0.5rem;
+	opacity: 0.9;
+	text-transform: uppercase;
+	letter-spacing: 0.025em;
+}
+
+.stat-value {
+	font-size: 1.25rem;
+	font-weight: 600;
+	display: block;
+}
+
+.empty-state {
+	text-align: center;
+	padding: 3rem 1.5rem;
+	color: #64748b;
+}
+
+.empty-state h4 {
+	color: #09090b;
+	margin-bottom: 0.5rem;
+	font-size: 1.125rem;
+	font-weight: 500;
+}
+
+.empty-state p {
+	margin-bottom: 1.5rem;
+	font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+	.section-header {
+		flex-direction: column;
+		gap: 0.5rem;
+		text-align: center;
+	}
+
+	.bills-table-container {
+		overflow-x: auto;
+	}
+
+	.bills-table {
+		min-width: 600px;
+	}
+
+	.summary-stats {
+		grid-template-columns: 1fr;
+	}
+}

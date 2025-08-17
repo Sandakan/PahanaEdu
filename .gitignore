@@ -6,6 +6,7 @@ target/
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
+.idea/copilotDiffState.xml
 .idea/compiler.xml
 .idea/libraries/
 *.iws
@@ -33,6 +34,8 @@ build/
 
 ### VS Code ###
 .vscode/
-
 ### Mac OS ###
 .DS_Store
+
+.env
+db.properties
