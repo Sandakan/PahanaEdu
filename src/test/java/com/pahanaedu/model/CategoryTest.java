@@ -65,4 +65,13 @@ class CategoryTest {
         category.setDeletedAt(now);
         assertEquals(now, category.getDeletedAt());
     }
+
+    @Test
+    void shouldHandleNullValues() {
+        Category category = new Category();
+        category.setName(null);
+        category.setDescription(null);
+        assertNull(category.getName());
+        assertNull(category.getDescription());
+    }
 }
