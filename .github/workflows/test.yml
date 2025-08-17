@@ -1,0 +1,40 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    
+    - name: Cache Maven dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+    
+    - name: Compile project
+      run: mvn clean compile
+    
+    - name: Run unit tests (excluding database-dependent tests)
+      run: mvn test -Dtest="!com.pahanaedu.dao.*Test,!com.pahanaedu.service.AuthServiceTest" -DfailIfNoTests=false
+    
+    - name: Generate test report
+      run: mvn surefire-report:report-only
+    
+    - name: Build WAR file
+      run: mvn package -DskipTests
