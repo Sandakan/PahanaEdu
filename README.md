@@ -7,21 +7,19 @@
 
 ## Overview
 
-Pahana Edu Billing System is a comprehensive Java-based web application designed for educational institutions in Sri Lanka. It features complete billing management, user management with role-based access control, customer management, inventory management, and comprehensive reporting. Built with Jakarta EE Servlets (6.0), JSP, and MySQL, it demonstrates enterprise-level layered architecture with session-based authentication, multi-role authorization, and modern design patterns including the Builder pattern for clean object construction.
+Pahana Edu Billing System is a comprehensive Java-based web application designed for the Pahana Edu bookshop in Sri Lanka. It features complete billing management, user management with role-based access control, customer management, inventory management, and comprehensive reporting. Built with Jakarta EE Servlets (6.0), JSP, and MySQL, it demonstrates enterprise-level layered architecture with session-based authentication, multi-role authorization, and modern design patterns, including the Builder pattern for clean object construction.
 
 ## Key Features
 
 - **Complete Billing System**: Dynamic bill creation with real-time calculations, multiple payment methods (Cash, Credit Card, Debit Card, Bank Transfer), and print-ready receipts
 - **Advanced User Management**: Admin-controlled user accounts with role-based permissions (Admin/Cashier), email validation, and comprehensive security
 - **Customer Management**: Comprehensive customer profiles with auto-generated 6-digit account numbers (ZEROFILL format) and relationship tracking
-- **Inventory Management**: Category-based item organization with pricing management, hierarchical categorization, and role-based access control
+- **Inventory Management**: Category-based item organization with pricing management
 - **Role-Based Security**: Differentiated access levels (Admin: full system access, Cashier: operational restrictions) with server-side and UI enforcement
 - **Modern Design Patterns**: Builder pattern implementation for clean object construction, enhanced readability, and maintainable test data creation
 - **Comprehensive Testing**: 100+ JUnit 5 test cases covering models, DAOs, enums, utilities, and Builder pattern functionality with database integration testing
-- **UML Documentation**: Complete sequence diagrams for Admin and Cashier workflows with business-level abstraction
 - **Help System**: Context-sensitive documentation with role-based content and troubleshooting guides
 - **Audit Compliance**: Soft deletes and referential integrity for financial record keeping
-- **Sri Lankan Localization**: All pricing in LKR with local formatting standards and cultural considerations
 
 ## Project Structure
 
@@ -95,7 +93,7 @@ Pahana Edu Billing System/
 - **Models**: `User.java`, `Bill.java`, `Customer.java`, `Item.java`, `Category.java` - Complete data models with business logic and calculations
 - **Enums**: `UserRole.java`, `PaymentMethod.java`, `PaymentStatus.java` - Type-safe enumerations with CSS integration and validation
 - **Database**: `DatabaseHelper.java` - Singleton DB connection manager with properties-based configuration
-- **Security**: `PasswordUtil.java` - Password handling utilities (plain text currently, BCrypt ready)
+- **Security**: `PasswordUtil.java` - Password handling utilities
 - **Frontend**: Role-based JSP pages with unified CSS/JS architecture, minimal override pattern, and permission controls
 - **Testing**: Comprehensive JUnit 5 test suite with 100+ test cases covering models, DAOs, enums, and utilities
 
@@ -103,7 +101,7 @@ Pahana Edu Billing System/
 
 ### Administrator (ADMIN)
 
-- **User Management**: Create, edit, delete user accounts and assign roles
+- **User Management**: Create, edit, and delete user accounts and assign roles
 - **Full Inventory Control**: Manage categories, items, and pricing
 - **Complete Bill Management**: All billing operations including deletion
 - **Customer Management**: Full customer account management
@@ -111,7 +109,7 @@ Pahana Edu Billing System/
 
 ### Cashier (CASHIER)
 
-- **Billing Operations**: Create, edit bills and process payments (cannot delete bills)
+- **Billing Operations**: Create, edit bills, and process payments (cannot delete bills)
 - **Customer Service**: Add and edit customer information
 - **Inventory Viewing**: Read-only access to items and categories
 - **Limited Access**: Cannot manage users, modify pricing, or delete financial records
@@ -202,7 +200,7 @@ The system follows a **Layered Architecture** pattern, organizing components int
 
 - **Model-View-Controller (MVC)**: Clean separation between data models, user interface, and control logic
 - **Data Access Object (DAO)**: Abstract database interactions with standardized CRUD operations
-- **Builder Pattern**: Implemented in Bill class for clean object construction and enhanced test data creation
+- **Builder Pattern**: Implemented in the Bill class for clean object construction and enhanced test data creation
 - **Singleton Pattern**: Database connection management through DatabaseHelper
 - **Service Layer Pattern**: Business logic encapsulation in AuthService and other service classes
 - **Filter Pattern**: Centralized authentication and authorization through AuthenticationFilter
@@ -210,9 +208,9 @@ The system follows a **Layered Architecture** pattern, organizing components int
 ### Security Model
 
 - **Session-Based Authentication**: Secure login/logout with session management
-- **Role-Based Authorization**: Fine-grained permissions based on user roles
+- **Role-Based Authorization**: Permissions based on user roles
 - **Route Protection**: All pages except login require authentication
-- **CSRF Protection**: Form-based security with server-side validation
+- **Input Validation**: Form-based security with server-side validation
 - **Data Integrity**: Soft deletes maintain referential integrity for audit compliance
 
 ### Database Design
@@ -273,21 +271,21 @@ mvn surefire-report:report
 ### Application Issues
 
 - **Permission denied errors:** Check user role - some features require admin access.
-- **Cannot delete categories/items:** Remove dependencies first or contact administrator.
-- **Login issues:** Verify credentials against database seed data or create new admin user.
+- **Cannot delete categories/items:** Remove dependencies first or contact the administrator.
+- **Login issues:** Verify credentials against database seed data or create a new admin user.
 - **Bill calculation errors:** Check item prices and quantities for valid BigDecimal values.
 
 ### Testing Issues
 
 - **Test failures:** Ensure MySQL test database is running and accessible.
-- **Connection timeouts:** Check database configuration in test environment.
-- **Test data conflicts:** Tests create and clean up their own data - no manual cleanup needed.
-- **Maven test execution:** Use `mvn clean test` to ensure fresh test environment.
+- **Connection timeouts:** Check database configuration in the test environment.
+- **Test data conflicts:** Tests create and clean up their data - no manual cleanup needed.
+- **Maven test execution:** Use `mvn clean test` to ensure a fresh test environment.
 
 ### Development Environment
 
-- **IDE not recognizing changes:** Run `mvn clean compile` to refresh build.
-- **CSS/JS not updating:** Clear browser cache and restart application server.
+- **IDE not recognizing changes:** Run `mvn clean compile` to refresh the build.
+- **CSS/JS not updating:** Clear browser cache and restart the application server.
 - **Database schema mismatch:** Re-run schema.sql and seeds.sql scripts.
 - **Port conflicts:** Check if ports 8080 (Tomcat) and 3306 (MySQL) are available.
 
